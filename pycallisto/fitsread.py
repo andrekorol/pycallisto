@@ -198,7 +198,7 @@ class ECallistoFitsFile(FitsFile):
     @staticmethod
     def plot_fits_files_list(files_list: list, title: str, plot_filename: str,
                              lang: str = 'en', start_freq: int = None,
-                             end_freq: int = None):
+                             end_freq: int = None, show: bool = False):
         extended_db = None
         ext_time_axis = None
         plt.figure(1, figsize=(11, 6))
@@ -274,7 +274,9 @@ class ECallistoFitsFile(FitsFile):
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
-        plt.show()
+
+        if show:
+            plt.show()
 
     def set_fits_linear_regression(self):
         hdul_dataset = self.hdul_dataset
