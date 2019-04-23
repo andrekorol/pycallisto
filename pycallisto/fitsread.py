@@ -199,6 +199,9 @@ class ECallistoFitsFile(FitsFile):
     def plot_fits_files_list(files_list: list, title: str, plot_filename: str,
                              lang: str = 'en', start_freq: int = None,
                              end_freq: int = None, show: bool = False):
+        plt.clf()
+        plt.close()
+
         extended_db = None
         ext_time_axis = None
         plt.figure(1, figsize=(11, 6))
