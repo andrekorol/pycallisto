@@ -26,6 +26,7 @@ from tkinter import Tk
 from tkinter import messagebox
 from tkinter import filedialog
 import math
+import urlget
 
 
 class FitsFile(object):
@@ -205,7 +206,19 @@ class ECallistoFitsFile(FitsFile):
         for file in files_list:
             fits_filename = file.split(os.sep)[-1]
             fitsfile = ECallistoFitsFile(fits_filename)
-            fitsfile.set_file_path()
+            try:
+                fitsfile.set_file_path()
+            except FileNotFoundError:
+                callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/' \
+                    'solarradio/data/2002-20yy_Callisto/'
+                fits_year = fits_filename.split('_')[1][:4]
+                fits_month = fits_filename.split('_')[1][4:6]
+                fits_day = fits_filename.split('_')[1][-2:]
+                fits_url = f'{callisto_archives}/{fits_year}/{fits_month}/' \
+                    f'{fits_day}/{fits_filename}'
+                fits_filename = urlget.download_from_url(fits_url)
+                fitsfile.set_file_path()
+
             fitsfile.set_hdul_dataset()
             if extended_db is None and ext_time_axis is None:
                 extended_db = fitsfile.hdul_dataset['db']
