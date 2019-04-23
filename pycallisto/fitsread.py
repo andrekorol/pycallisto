@@ -217,7 +217,7 @@ class ECallistoFitsFile(FitsFile):
                 fits_url = f'{callisto_archives}/{fits_year}/{fits_month}/' \
                     f'{fits_day}/{fits_filename}'
                 fits_filename = urlget.download_from_url(fits_url)
-                fitsfile.set_file_path()
+                fitsfile.set_file_path(fits_filename)
 
             fitsfile.set_hdul_dataset()
             if extended_db is None and ext_time_axis is None:
