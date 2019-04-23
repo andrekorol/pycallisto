@@ -112,7 +112,7 @@ class ECallistoFitsFile(FitsFile):
         hdul_dataset['v_min'] = -1  # -0.5, 100
         hdul_dataset['v_max'] = 8  # 4, 160
         hdul_dataset['dref'] = hdul_dataset['data'] - \
-                               np.min(hdul_dataset['data'])
+            np.min(hdul_dataset['data'])
         # conversion digit->voltage->into db
         hdul_dataset['db'] = self.digit_to_voltage(hdul_dataset['dref']) / 25.4
         hdul_dataset['db_median'] = np.median(hdul_dataset['db'], axis=1,
@@ -166,8 +166,8 @@ class ECallistoFitsFile(FitsFile):
         plt.cla()
         plt.close('all')
 
-    def plot_freq_range_db_above_background(self, start_freq, end_freq, show=False,
-                                            save=True):
+    def plot_freq_range_db_above_background(self, start_freq, end_freq,
+                                            show=False, save=True):
         plt.figure(1, figsize=(11, 6))
         plt.imshow(self.hdul_dataset['db'] - self.hdul_dataset['db_median'],
                    cmap='magma', norm=plt.Normalize(self.hdul_dataset['v_min'],
@@ -195,8 +195,9 @@ class ECallistoFitsFile(FitsFile):
         plt.close('all')
 
     @staticmethod
-    def plot_fits_files_list(files_list: list, start_freq: int, end_freq: int,
-                             title: str, lang: str, plot_filename: str):
+    def plot_fits_files_list(files_list: list, title: str, plot_filename: str,
+                             lang: str = 'en', start_freq: int = None,
+                             end_freq: int = None):
         extended_db = None
         ext_time_axis = None
         plt.figure(1, figsize=(11, 6))
@@ -224,7 +225,10 @@ class ECallistoFitsFile(FitsFile):
                            ext_time_axis[-1],
                            fitsfile.hdul_dataset['frequency'][-1],
                            fitsfile.hdul_dataset['frequency'][0]])
-        plt.ylim(start_freq, end_freq)
+
+        if start_freq is not None and end_freq is not None:
+            plt.ylim(start_freq, end_freq)
+
         plt.gca().invert_yaxis()
 
         hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
