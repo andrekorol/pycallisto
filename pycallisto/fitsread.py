@@ -207,7 +207,7 @@ class ECallistoFitsFile(FitsFile):
             fits_filename = file.split(os.sep)[-1]
             fitsfile = ECallistoFitsFile(fits_filename)
             try:
-                fitsfile.set_file_path()
+                fitsfile.set_file_path(fits_filename)
             except FileNotFoundError:
                 callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/' \
                     'solarradio/data/2002-20yy_Callisto/'
