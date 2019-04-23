@@ -33,6 +33,7 @@ config = {
     'author_email': 'anrobits@yahoo.com.br',
     'version': '0.1',
     'install_requires': ['numpy', 'astropy', 'matplotlib'],
+    'packages': ['pycallisto']
 }
 
 setup(**config)
