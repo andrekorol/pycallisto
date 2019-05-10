@@ -198,7 +198,8 @@ class ECallistoFitsFile(FitsFile):
     @staticmethod
     def plot_fits_files_list(files_list: list, title: str, plot_filename: str,
                              lang: str = 'en', start_freq: int = None,
-                             end_freq: int = None, show: bool = False):
+                             end_freq: int = None, hours_xticks: list = [],
+                             show: bool = False):
         plt.clf()
         plt.close()
 
@@ -248,12 +249,13 @@ class ECallistoFitsFile(FitsFile):
         hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
         minutes_delta = hours_delta * 60
         ticks_interval = minutes_delta / (len(files_list) + 1)
-        hours_xticks = []
-        hour = timedelta(hours=round(ext_time_axis[0], 2))
-        hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
-        while hour != timedelta(hours=round(ext_time_axis[-1], 2)):
-            hour = hour + timedelta(minutes=ticks_interval)
+        if hours_xticks == []:
+            hour = timedelta(hours=round(ext_time_axis[0], 2))
             hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+            while hour != timedelta(hours=round(ext_time_axis[-1], 2)):
+                hour = hour + timedelta(minutes=ticks_interval)
+                hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+            # TODO: Fix automatic xticks
 
         plt.gca().set_xticklabels(hours_xticks, fontsize=15)
 
