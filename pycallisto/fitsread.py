@@ -241,7 +241,7 @@ class ECallistoFitsFile(FitsFile):
                            fitsfile.hdul_dataset['frequency'][-1],
                            fitsfile.hdul_dataset['frequency'][0]])
 
-        if start_freq is not None and end_freq is not None:
+        if start_freq is not None or end_freq is not None:
             plt.ylim(start_freq, end_freq)
 
         plt.gca().invert_yaxis()
