@@ -247,7 +247,7 @@ class ECallistoFitsFile(FitsFile):
 
         hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
         minutes_delta = hours_delta * 60
-        ticks_interval = minutes_delta / (len(files_list) + 4)
+        ticks_interval = minutes_delta / (len(files_list) + 5)
         hours_xticks = []
         hour = timedelta(hours=round(ext_time_axis[0], 2))
         hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
