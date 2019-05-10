@@ -257,7 +257,7 @@ class ECallistoFitsFile(FitsFile):
                 hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
             # TODO: Fix automatic xticks
 
-        plt.gca().set_xticklabels(hours_xticks, fontsize=15)
+        plt.gca().set_xticklabels(hours_xticks, fontsize=10)
 
         labels = {
             'en': {'colorbar': 'dB above background',
