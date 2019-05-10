@@ -273,7 +273,7 @@ class ECallistoFitsFile(FitsFile):
         plt.xlabel(labels['xlabel'], fontsize=15)
         plt.ylabel(labels['ylabel'], fontsize=15)
         plt.title(title, fontsize=16)
-        plt.tick_params(labelsize=14)
+        # plt.tick_params(labelsize=14)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
