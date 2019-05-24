@@ -26,6 +26,7 @@ from tkinter import Tk
 from tkinter import messagebox
 from tkinter import filedialog
 import math
+import urlget
 
 
 class FitsFile(object):
@@ -45,26 +46,10 @@ class FitsFile(object):
         if file_path is not None:
             self.file_path = file_path
         else:
-            root = Tk()
-            root.withdraw()
-            if self.filename is not None:
-                try:
-                    top = os.getcwd()
-                    for root, dirs, files in os.walk(top):
-                        for file in files:
-                            if file == self.filename:
-                                self.file_path = os.path.abspath(file)
-                finally:
-                    if self.file_path is None:
-                        messagebox.showerror('FileNotFoundError: [Errno 2]',
-                                             'No such file or directory: '
-                                             f'{self.filename}')
-                        raise FileNotFoundError
-
-            else:
-                self.file_path = filedialog.askopenfilename()
-                self.set_filename(self.file_path.split('/')[-1])
-
+            data_archives = "http://soleil80.cs.technik.fhnw.ch/solarradio/\
+                    data/2002-20yy_Callisto/"
+            self.file_path =
+            urlget.download_from_url(f"{data_archives}/{self.filename}")
     def get_file_path(self):
         return self.file_path
 
