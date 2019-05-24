@@ -46,10 +46,15 @@ class FitsFile(object):
         if file_path is not None:
             self.file_path = file_path
         else:
-            data_archives = "http://soleil80.cs.technik.fhnw.ch/solarradio/\
-                    data/2002-20yy_Callisto/"
-            self.file_path = urlget.download_from_url(f"{data_archives}/\
-                                                      {self.filename}")
+            callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/solarradio/' \
+                    'data/2002-20yy_Callisto/'
+            fits_year = self.filename.split('_')[1][:4]
+            fits_month = self.filename.split('_')[1][4:6]
+            fits_day = self.filename.split('_')[1][-2:]
+            fits_url = f'{callisto_archives}/{fits_year}/{fits_month}/' \
+                    f'{fits_day}/{self.filename}'
+            self.file_path = urlget.download_from_url(fits_url)
+
     def get_file_path(self):
         return self.file_path
 
