@@ -237,7 +237,7 @@ class ECallistoFitsFile(FitsFile):
             hour = hour + timedelta(minutes=ticks_interval)
             hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
 
-        plt.gca().set_xticklabels(hours_xticks, fontsize=15)
+        plt.xticks(np.arrange(len(hours_xticks, hours_xticks)))
 
         labels = {
             'en': {'colorbar': 'dB above background',
@@ -337,3 +337,4 @@ class ChromosphericEvaporationFitsFile(ECallistoFitsFile):
 
     def get_front(self):
         return self.front
+
