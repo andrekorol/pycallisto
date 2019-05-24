@@ -26,7 +26,7 @@ from tkinter import Tk
 from tkinter import messagebox
 from tkinter import filedialog
 import math
-import urlget
+from pycallisto import urlget
 
 
 class FitsFile(object):
