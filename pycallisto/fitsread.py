@@ -48,8 +48,8 @@ class FitsFile(object):
         else:
             data_archives = "http://soleil80.cs.technik.fhnw.ch/solarradio/\
                     data/2002-20yy_Callisto/"
-            self.file_path =
-            urlget.download_from_url(f"{data_archives}/{self.filename}")
+            self.file_path = urlget.download_from_url(f"{data_archives}/\
+                                                      {self.filename}")
     def get_file_path(self):
         return self.file_path
 
