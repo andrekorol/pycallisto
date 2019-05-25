@@ -237,12 +237,12 @@ class ECallistoFitsFile(FitsFile):
         hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
         minutes_delta = hours_delta * 60
         ticks_interval = minutes_delta / (len(files_list) + 1)
-        if hours_xticks == []:
-            hour = timedelta(hours=round(ext_time_axis[0], 2))
+        hours_xticks == []:
+        hour = timedelta(hours=round(ext_time_axis[0], 2))
+        hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+        while hour != timedelta(hours=round(ext_time_axis[-1], 2)):
+            hour = hour + timedelta(minutes=ticks_interval)
             hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
-            while hour != timedelta(hours=round(ext_time_axis[-1], 2)):
-                hour = hour + timedelta(minutes=ticks_interval)
-                hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
 
         plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
 
