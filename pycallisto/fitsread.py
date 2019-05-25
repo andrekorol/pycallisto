@@ -46,25 +46,14 @@ class FitsFile(object):
         if file_path is not None:
             self.file_path = file_path
         else:
-            root = Tk()
-            root.withdraw()
-            if self.filename is not None:
-                try:
-                    top = os.getcwd()
-                    for root, dirs, files in os.walk(top):
-                        for file in files:
-                            if file == self.filename:
-                                self.file_path = os.path.abspath(file)
-                finally:
-                    if self.file_path is None:
-                        messagebox.showerror('FileNotFoundError: [Errno 2]',
-                                             'No such file or directory: '
-                                             f'{self.filename}')
-                        raise FileNotFoundError
-
-            else:
-                self.file_path = filedialog.askopenfilename()
-                self.set_filename(self.file_path.split('/')[-1])
+            callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/solarradio/' \
+                    'data/2002-20yy_Callisto/'
+            fits_year = self.filename.split('_')[1][:4]
+            fits_month = self.filename.split('_')[1][4:6]
+            fits_day = self.filename.split('_')[1][-2:]
+            fits_url = f'{callisto_archives}/{fits_year}/{fits_month}/' \
+                    f'{fits_day}/{self.filename}'
+            self.file_path = urlget.download_from_url(fits_url)
 
     def get_file_path(self):
         return self.file_path
@@ -198,8 +187,7 @@ class ECallistoFitsFile(FitsFile):
     @staticmethod
     def plot_fits_files_list(files_list: list, title: str, plot_filename: str,
                              lang: str = 'en', start_freq: int = None,
-                             end_freq: int = None, hours_xticks: list = [],
-                             show: bool = False):
+                             end_freq: int = None, show: bool = False):
         plt.clf()
         plt.close()
 
@@ -255,9 +243,8 @@ class ECallistoFitsFile(FitsFile):
             while hour != timedelta(hours=round(ext_time_axis[-1], 2)):
                 hour = hour + timedelta(minutes=ticks_interval)
                 hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
-            # TODO: Fix automatic xticks
 
-        plt.gca().set_xticklabels(hours_xticks, fontsize=10)
+        plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
 
         labels = {
             'en': {'colorbar': 'dB above background',
@@ -359,3 +346,4 @@ class ChromosphericEvaporationFitsFile(ECallistoFitsFile):
 
     def get_front(self):
         return self.front
+
