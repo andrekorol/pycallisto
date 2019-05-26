@@ -248,7 +248,8 @@ class ECallistoFitsFile(FitsFile):
 
         #  plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
         locs, xticks_labels = plt.xticks()
-        print(locs, xticks_labels)
+        for lbl in xticks_labels:
+            print(lbl)
 
         labels = {
             'en': {'colorbar': 'dB above background',
