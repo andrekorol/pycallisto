@@ -22,9 +22,9 @@ from datetime import timedelta
 import numpy as np
 from astropy.io import fits
 import os
-#  from tkinter import Tk
+from tkinter import Tk
 from tkinter import messagebox
-#  from tkinter import filedialog
+from tkinter import filedialog
 import math
 import json
 from pycallisto import urlget
@@ -47,13 +47,13 @@ class FitsFile(object):
         if file_path is not None:
             self.file_path = file_path
         else:
-            callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/' \
-                    'solarradio/data/2002-20yy_Callisto/'
+            callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/solarradio/' \
+                    'data/2002-20yy_Callisto/'
             fits_year = self.filename.split('_')[1][:4]
             fits_month = self.filename.split('_')[1][4:6]
             fits_day = self.filename.split('_')[1][-2:]
             fits_url = f'{callisto_archives}/{fits_year}/{fits_month}/' \
-                       f'{fits_day}/{self.filename}'
+                    f'{fits_day}/{self.filename}'
             self.file_path = urlget.download_from_url(fits_url)
 
     def get_file_path(self):
@@ -370,3 +370,4 @@ class ChromosphericEvaporationFitsFile(ECallistoFitsFile):
 
     def get_front(self):
         return self.front
+
