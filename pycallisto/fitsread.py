@@ -22,9 +22,9 @@ from datetime import timedelta
 import numpy as np
 from astropy.io import fits
 import os
-from tkinter import Tk
+#  from tkinter import Tk
 from tkinter import messagebox
-from tkinter import filedialog
+#  from tkinter import filedialog
 import math
 from pycallisto import urlget
 
@@ -46,13 +46,13 @@ class FitsFile(object):
         if file_path is not None:
             self.file_path = file_path
         else:
-            callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/solarradio/' \
-                    'data/2002-20yy_Callisto/'
+            callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/' \
+                    'solarradio/data/2002-20yy_Callisto/'
             fits_year = self.filename.split('_')[1][:4]
             fits_month = self.filename.split('_')[1][4:6]
             fits_day = self.filename.split('_')[1][-2:]
             fits_url = f'{callisto_archives}/{fits_year}/{fits_month}/' \
-                    f'{fits_day}/{self.filename}'
+                       f'{fits_day}/{self.filename}'
             self.file_path = urlget.download_from_url(fits_url)
 
     def get_file_path(self):
@@ -191,7 +191,7 @@ class ECallistoFitsFile(FitsFile):
 
         extended_db = None
         ext_time_axis = None
-        #  plt.figure(1, figsize=(11, 6))
+        plt.figure(1, figsize=(11, 6))
         fitsfile = None
         callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/solarradio/' \
             'data/2002-20yy_Callisto/'
@@ -266,20 +266,10 @@ class ECallistoFitsFile(FitsFile):
         if show:
             plt.show()
 
-<<<<<<< HEAD
-        #  plt.clf()
-        plt.close()
+        plt.clf()
+        plt.cla()
+        plt.close('all')
 
-    @staticmethod
-    def plot_json_fits_file(filename):
-        with open(filename) as json_file:
-            json_str = json_file.read()
-            json_data = json.loads(json_str)
-        for fits_list in json_data:
-            ECallistoFitsFile.plot_fits_files_list(fits_list)
-
-=======
->>>>>>> parent of 77b4ebe... Implement the plot_json_fits_file method
     def set_fits_linear_regression(self):
         hdul_dataset = self.hdul_dataset
         hdul_dataset['lin_reg'] = np.polyfit(hdul_dataset['time_axis'],
@@ -358,4 +348,3 @@ class ChromosphericEvaporationFitsFile(ECallistoFitsFile):
 
     def get_front(self):
         return self.front
-
