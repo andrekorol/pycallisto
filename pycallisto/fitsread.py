@@ -264,6 +264,8 @@ class ECallistoFitsFile(FitsFile):
         plt.title(title, fontsize=16)
         plt.tick_params(labelsize=14)
 
+        plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
+
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
 
