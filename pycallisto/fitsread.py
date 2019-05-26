@@ -190,8 +190,6 @@ class ECallistoFitsFile(FitsFile):
                              plot_filename: str = None,
                              lang: str = 'en', start_freq: int = None,
                              end_freq: int = None, show: bool = False):
-        plt.clf()
-        plt.close()
 
         extended_db = None
         ext_time_axis = None
@@ -282,6 +280,9 @@ class ECallistoFitsFile(FitsFile):
 
         if show:
             plt.show()
+
+        #  plt.clf()
+        plt.close()
 
     @staticmethod
     def plot_json_fits_file(filename):
