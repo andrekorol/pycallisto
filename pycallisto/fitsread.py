@@ -26,6 +26,7 @@ import os
 from tkinter import messagebox
 #  from tkinter import filedialog
 import math
+import json
 from pycallisto import urlget
 
 
@@ -281,6 +282,14 @@ class ECallistoFitsFile(FitsFile):
 
         if show:
             plt.show()
+
+    @staticmethod
+    def plot_json_fits_file(filename):
+        with open(filename) as json_file:
+            json_str = json_file.read()
+            json_data = json.loads(json_str)
+        for fits_list in json_data:
+            ECallistoFitsFile.plot_fits_files_list(fits_list)
 
     def set_fits_linear_regression(self):
         hdul_dataset = self.hdul_dataset
