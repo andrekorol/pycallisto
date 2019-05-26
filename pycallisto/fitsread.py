@@ -246,7 +246,7 @@ class ECallistoFitsFile(FitsFile):
             hour = hour + timedelta(minutes=ticks_interval)
             hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
 
-        plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
+        #  plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
 
         labels = {
             'en': {'colorbar': 'dB above background',
