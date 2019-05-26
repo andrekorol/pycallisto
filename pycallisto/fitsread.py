@@ -247,6 +247,8 @@ class ECallistoFitsFile(FitsFile):
             hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
 
         #  plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
+        locs, xticks_labels = plt.xticks()
+        print(locs, xticks_labels)
 
         labels = {
             'en': {'colorbar': 'dB above background',
@@ -263,8 +265,6 @@ class ECallistoFitsFile(FitsFile):
         plt.ylabel(labels['ylabel'], fontsize=15)
         plt.title(title, fontsize=16)
         plt.tick_params(labelsize=14)
-
-        plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
