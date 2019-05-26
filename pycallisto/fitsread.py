@@ -193,7 +193,7 @@ class ECallistoFitsFile(FitsFile):
 
         extended_db = None
         ext_time_axis = None
-        plt.figure(1, figsize=(11, 6))
+        #  plt.figure(1, figsize=(11, 6))
         fitsfile = None
         callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/solarradio/' \
             'data/2002-20yy_Callisto/'
