@@ -185,7 +185,8 @@ class ECallistoFitsFile(FitsFile):
         plt.close('all')
 
     @staticmethod
-    def plot_fits_files_list(files_list: list, title: str, plot_filename: str,
+    def plot_fits_files_list(files_list: list, title: str = None,
+                             plot_filename: str = None,
                              lang: str = 'en', start_freq: int = None,
                              end_freq: int = None, show: bool = False):
         plt.clf()
@@ -259,8 +260,21 @@ class ECallistoFitsFile(FitsFile):
         plt.colorbar(label=labels['colorbar'])
         plt.xlabel(labels['xlabel'], fontsize=15)
         plt.ylabel(labels['ylabel'], fontsize=15)
+
+        if title is None:
+            # Define plot's title
+            title_start = '_'.join(files_list[0].split('_')[:-1])
+            freq_band = files_list[-1].split('_')[-1].split('.')[0]
+            title_end = '_'.join([files_list[-1].split('_')[-2],
+                                 freq_band])
+            title = '_'.join([title_start, title_end])
+
         plt.title(title, fontsize=16)
+
         plt.tick_params(labelsize=14)
+
+        if plot_filename is None:
+            plot_filename = title
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
