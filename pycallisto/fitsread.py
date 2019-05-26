@@ -26,7 +26,6 @@ from tkinter import Tk
 from tkinter import messagebox
 from tkinter import filedialog
 import math
-import json
 from pycallisto import urlget
 
 
@@ -267,6 +266,7 @@ class ECallistoFitsFile(FitsFile):
         if show:
             plt.show()
 
+<<<<<<< HEAD
         #  plt.clf()
         plt.close()
 
@@ -278,6 +278,8 @@ class ECallistoFitsFile(FitsFile):
         for fits_list in json_data:
             ECallistoFitsFile.plot_fits_files_list(fits_list)
 
+=======
+>>>>>>> parent of 77b4ebe... Implement the plot_json_fits_file method
     def set_fits_linear_regression(self):
         hdul_dataset = self.hdul_dataset
         hdul_dataset['lin_reg'] = np.polyfit(hdul_dataset['time_axis'],
