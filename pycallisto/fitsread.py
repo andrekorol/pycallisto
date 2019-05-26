@@ -189,6 +189,10 @@ class ECallistoFitsFile(FitsFile):
                              lang: str = 'en', start_freq: int = None,
                              end_freq: int = None, show: bool = False):
 
+        plt.clf()
+        plt.cla()
+        plt.close('all')
+
         extended_db = None
         ext_time_axis = None
         plt.figure(1, figsize=(11, 6))
