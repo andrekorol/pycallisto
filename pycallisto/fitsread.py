@@ -18,7 +18,7 @@
 # along with Pycallisto. If not, see <https://www.gnu.org/licenses/>.
 
 from matplotlib import pyplot as plt
-from datetime import timedelta
+#  from datetime import timedelta
 import numpy as np
 from astropy.io import fits
 import os
@@ -236,16 +236,17 @@ class ECallistoFitsFile(FitsFile):
 
         plt.gca().invert_yaxis()
 
-        hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
-        minutes_delta = hours_delta * 60
-        ticks_interval = minutes_delta / (len(files_list) + 1)
-        hours_xticks = []
-        hour = timedelta(hours=round(ext_time_axis[0], 2))
-        hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
-        while hour != timedelta(hours=round(ext_time_axis[-1], 2)):
-            hour = hour + timedelta(minutes=ticks_interval)
-            hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
-
+        #  hours_delta = round(ext_time_axis[-1], 2) -
+        #  round(ext_time_axis[0], 2)
+        #  minutes_delta = hours_delta * 60
+        #  ticks_interval = minutes_delta / (len(files_list) + 1)
+        #  hours_xticks = []
+        #  hour = timedelta(hours=round(ext_time_axis[0], 2))
+        #  hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+        #  while hour != timedelta(hours=round(ext_time_axis[-1], 2)):
+        #      hour = hour + timedelta(minutes=ticks_interval)
+        #      hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+        #
         #  plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
         labels = {
             'en': {'colorbar': 'dB above background',
@@ -263,9 +264,11 @@ class ECallistoFitsFile(FitsFile):
         plt.title(title, fontsize=16)
         plt.tick_params(labelsize=14)
 
+        #  hours_xticks = []
         locs, xticks_labels = plt.xticks()
         for loc in locs:
-            print(round(loc, 1))
+            hour = str(int(loc)) + ':' + str(int((loc - int(loc)) * 60))
+            print(hour)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
