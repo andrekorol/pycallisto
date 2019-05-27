@@ -311,7 +311,10 @@ class ECallistoFitsFile(FitsFile):
 
         print("final_seconds =", final_seconds)
         print("final_xticks_seconds =", final_xticks_seconds)
-        print(final_hour.__str__())
+        final_hour_str = final_hour.__str__()
+        if len(final_hour_str.split(':')[0]) == 1:
+            final_hour_str = '0' + final_hour_str
+        print(final_hour_str)
         exit(0)
         if title is None:
             # Define plot's title
