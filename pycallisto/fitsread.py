@@ -259,15 +259,6 @@ class ECallistoFitsFile(FitsFile):
         plt.colorbar(label=labels['colorbar'])
         plt.xlabel(labels['xlabel'], fontsize=15)
         plt.ylabel(labels['ylabel'], fontsize=15)
-        if title is None:
-            # Define plot's title
-            title_start = '_'.join(files_list[0].split('_')[:-1])
-            freq_band = files_list[-1].split('_')[-1].split('.')[0]
-            #  title_end = '_'.join([files_list[-1].split('_')[-2],
-            #  freq_band])
-            title = '_'.join([title_start, freq_band])
-        plt.title(title, fontsize=16)
-
         plt.tick_params(labelsize=14)
 
         if plot_filename is None:
@@ -320,6 +311,15 @@ class ECallistoFitsFile(FitsFile):
 
         print("final_seconds =", final_seconds)
         print("final_xticks_seconds =", final_xticks_seconds)
+
+        if title is None:
+            # Define plot's title
+            title_start = '_'.join(files_list[0].split('_')[:-1])
+            freq_band = files_list[-1].split('_')[-1].split('.')[0]
+            title_end = ''.join(final_hour.split(':'))
+            title_end = '_'.join([title_end, freq_band])
+            title = '_'.join([title_start, title_end])
+        plt.title(title, fontsize=16)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
