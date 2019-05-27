@@ -261,14 +261,14 @@ class ECallistoFitsFile(FitsFile):
 
         #  hours_xticks = []
         locs, xticks_labels = plt.xticks()
-        print(len(locs), len(hours_xticks))
+        #  print(len(locs), len(hours_xticks))
         #  for loc in locs:
         #      hour = str(int(loc)) + ':' + str(int((loc - int(loc)) * 60))
         #      if hour.split(':')[-1] == '0':
         #          hour += '0'
         #      print(loc, hour)
         #      hours_xticks.append(hour)
-        #  plt.xticks(locs, hours_xticks)
+        plt.xticks(locs, hours_xticks)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
