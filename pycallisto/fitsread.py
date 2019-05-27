@@ -271,8 +271,10 @@ class ECallistoFitsFile(FitsFile):
         print(locs)
         print(hours_xticks)
         hours_xticks.pop()
-        if str(initial_hour).split(':')[:-1] != hours_xticks[0]:
-            hours_xticks.pop(0)
+        print(str(initial_hour).split(':')[:-1], hours_xticks[0])
+        #  if str(initial_hour).split(':')[:-1] != hours_xticks[0]:
+        #      hours_xticks.pop(0)
+        #      locs = locs[1:]
         plt.xticks(locs[:-1], hours_xticks)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
