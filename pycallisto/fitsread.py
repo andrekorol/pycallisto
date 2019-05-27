@@ -236,7 +236,7 @@ class ECallistoFitsFile(FitsFile):
         minutes_delta = hours_delta * 60
         print(minutes_delta)
         locs, xticks_labels = plt.xticks()
-        ticks_interval = minutes_delta / len(xticks_labels)
+        ticks_interval = math.ceil(minutes_delta / (len(xticks_labels) - 2))
         hours_xticks = []
         hour = timedelta(hours=round(ext_time_axis[0], 2))
         hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
