@@ -291,11 +291,15 @@ class ECallistoFitsFile(FitsFile):
         if ':'.join(str(initial_hour).split(':')[:-1]) != hours_xticks[0]:
             hours_xticks.pop(0)
             locs = locs[1:]
-
+        initial_minutes = initial_hour.seconds()
+        print("initial_minutes =", initial_minutes)
         for index, item in enumerate(hours_xticks):
             if len(item.split(':')[0]) == 1:
                 hours_xticks[index] = '0' + item
 
+        # TODO: Fix line below to only remove item if last hour is greater
+        # than last hour in FITS file
+        # final_hour = extended_time_axis[-1]...
         plt.xticks(locs[:-1], hours_xticks)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
