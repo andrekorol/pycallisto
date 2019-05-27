@@ -316,7 +316,7 @@ class ECallistoFitsFile(FitsFile):
             # Define plot's title
             title_start = '_'.join(files_list[0].split('_')[:-1])
             freq_band = files_list[-1].split('_')[-1].split('.')[0]
-            title_end = ''.join(final_hour.split(':'))
+            title_end = ''.join(final_hour.__str__().split(':'))
             title_end = '_'.join([title_end, freq_band])
             title = '_'.join([title_start, title_end])
         plt.title(title, fontsize=16)
