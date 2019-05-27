@@ -312,7 +312,7 @@ class ECallistoFitsFile(FitsFile):
 
         hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
         minutes_delta = hours_delta * 60
-        ticks_interval = math.ceil(minutes_delta / len(locs))
+        ticks_interval = math.round(minutes_delta / (len(locs) - 1), 0)
         print("ticks_interval =", ticks_interval)
         final_xticks = []
         hour = initial_hour
