@@ -234,9 +234,11 @@ class ECallistoFitsFile(FitsFile):
 
         plt.gca().invert_yaxis()
 
+        locs, xticks_labels = plt.xticks()
+
         hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
         minutes_delta = hours_delta * 60
-        ticks_interval = minutes_delta / (len(files_list) + 1)
+        ticks_interval = minutes_delta / len(locs)
         print(ticks_interval)
         exit(0)
         hours_xticks = []
