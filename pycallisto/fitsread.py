@@ -239,7 +239,7 @@ class ECallistoFitsFile(FitsFile):
         #  minutes_delta = hours_delta * 60
         #  ticks_interval = minutes_delta / (len(files_list) + 1)
         #  hours_xticks = []
-        initial_hour = timedelta(hours=round(ext_time_axis[0], 2))
+        #  initial_hour = timedelta(hours=round(ext_time_axis[0], 2))
         #  hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
         #  while hour != timedelta(hours=round(ext_time_axis[-1], 2)):
         #      hour = hour + timedelta(minutes=ticks_interval)
@@ -283,17 +283,21 @@ class ECallistoFitsFile(FitsFile):
                 hour = hour.split(':')[0] + ":0" + hour.split(':')[-1]
             hours_xticks.append(hour)
 
-        print(locs)
-        print(hours_xticks)
-        hours_xticks.pop()
+        #  print(locs)
+        #  print(hours_xticks)
+        #  hours_xticks.pop()
+
+        initial_hour = timedelta(hours=round(ext_time_axis[0], 2))
 
         print(':'.join(str(initial_hour).split(':')[:-1]), hours_xticks[0])
-        if ':'.join(str(initial_hour).split(':')[:-1]) != hours_xticks[0]:
-            hours_xticks.pop(0)
-            locs = locs[1:]
         initial_seconds = initial_hour.seconds
         initial_xticks_seconds = int(hours_xticks[0].split(':')[0]) * 3600
         initial_xticks_seconds += int(hours_xticks[0].split(':')[-1]) * 60
+
+        if initial_seconds != initial_xticks_seconds:
+            hours_xticks.pop(0)
+            locs = locs[1:]
+
         print("initial_seconds =", initial_seconds)
         print("initial_xticks_seconds =", initial_xticks_seconds)
         for index, item in enumerate(hours_xticks):
@@ -303,7 +307,19 @@ class ECallistoFitsFile(FitsFile):
         # TODO: Fix line below to only remove item if last hour is greater
         # than last hour in FITS file
         # final_hour = extended_time_axis[-1]...
-        plt.xticks(locs[:-1], hours_xticks)
+        final_hour = timedelta(hours=round(ext_time_axis[-1], 2))
+        final_seconds = final_hour.seconds
+        final_xticks_seconds = int(hours_xticks[-1].split(':')[0]) * 3600
+        final_xticks_seconds += int(hours_xticks[-1].split(':')[-1]) * 60
+
+        if final_seconds != final_xticks_seconds:
+            hours_xticks.pop()
+            plt.xticks(locs[:-1], hours_xticks)
+        else:
+            plt.xticks(locs, hours_xticks)
+
+        print("final_seconds =", final_seconds)
+        print("final_xticks_seconds =", final_xticks_seconds)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
