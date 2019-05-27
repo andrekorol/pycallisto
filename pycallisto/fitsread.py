@@ -312,8 +312,11 @@ class ECallistoFitsFile(FitsFile):
 
         if initial_xticks_seconds != initial_seconds:
             print("type =", type(hours_xticks[0]))
-            minutes_delta = int(hours_xticks.split(':')[0] * 60)
-            minutes_delta += int(hours_xticks.split(':')[-1])
+            last_minutes = int(hours_xticks[-1].split(':')[0]) * 60
+            last_minutes += int(hours_xticks[-1].split(':')[-1])
+            first_minutes = int(hours_xticks[0].split(':')[0]) * 60
+            first_minutes += int(hours_xticks[0].split(':')[-1])
+            minutes_delta = last_minutes - first_minutes
             print("minutes_delta =", minutes_delta)
             plt.xticks(locs, hours_xticks)
         else:
