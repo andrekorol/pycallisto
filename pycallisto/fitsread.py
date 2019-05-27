@@ -264,8 +264,8 @@ class ECallistoFitsFile(FitsFile):
         plt.tick_params(labelsize=14)
 
         locs, xticks_labels = plt.xticks()
-        for lbl in xticks_labels:
-            print(lbl.get_text())
+        for loc in locs:
+            print(type(loc))
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
