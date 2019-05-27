@@ -234,6 +234,7 @@ class ECallistoFitsFile(FitsFile):
 
         hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
         minutes_delta = hours_delta * 60
+        print(minutes_delta)
         locs, xticks_labels = plt.xticks()
         ticks_interval = minutes_delta / len(xticks_labels)
         hours_xticks = []
