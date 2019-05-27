@@ -313,11 +313,18 @@ class ECallistoFitsFile(FitsFile):
         minutes_delta = hours_delta * 60
         ticks_interval = math.ceil(minutes_delta / len(locs))
         print("ticks_interval =", ticks_interval)
-        #  final_xticks = []
-        print("locs =", locs)
+        final_xticks = []
+        hour = initial_hour
+        counter = 0
+        for loc in locs:
+            hour = hour + timedelta(minutes=ticks_interval * counter)
+            final_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+            counter += 1
 
-        print("final_seconds =", final_seconds)
-        print("final_xticks_seconds =", final_xticks_seconds)
+        print("final_xticks =", final_xticks)
+
+        #  print("final_seconds =", final_seconds)
+        #  print("final_xticks_seconds =", final_xticks_seconds)
         final_hour_str = final_hour.__str__()
         if len(final_hour_str.split(':')[0]) == 1:
             final_hour_str = '0' + final_hour_str
