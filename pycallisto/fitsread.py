@@ -311,6 +311,7 @@ class ECallistoFitsFile(FitsFile):
         #      plt.xticks(locs, hours_xticks)
 
         if initial_xticks_seconds != initial_seconds:
+            print("type =", type(hours_xticks[0]))
             plt.xticks(locs, hours_xticks)
         else:
             hours_delta = round(ext_time_axis[-1], 2)
