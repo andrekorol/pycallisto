@@ -235,20 +235,6 @@ class ECallistoFitsFile(FitsFile):
 
         plt.gca().invert_yaxis()
 
-<<<<<<< HEAD
-        hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
-        minutes_delta = hours_delta * 60
-        print(minutes_delta)
-        locs, xticks_labels = plt.xticks()
-        ticks_interval = math.ceil(minutes_delta / (len(xticks_labels) - 2))
-        hours_xticks = []
-        hour = timedelta(hours=round(ext_time_axis[0], 2))
-        hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
-        while hour < timedelta(hours=round(ext_time_axis[-1], 2)):
-            hour = hour + timedelta(minutes=ticks_interval)
-            hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
-
-=======
         #  hours_delta = round(ext_time_axis[-1], 2) -
         #  round(ext_time_axis[0], 2)
         #  minutes_delta = hours_delta * 60
@@ -262,7 +248,6 @@ class ECallistoFitsFile(FitsFile):
         #      hour = hour + timedelta(minutes=ticks_interval)
         #      hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
         #
->>>>>>> xticks
         #  plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
         labels = {
             'en': {'colorbar': 'dB above background',
@@ -277,19 +262,6 @@ class ECallistoFitsFile(FitsFile):
         plt.colorbar(label=labels['colorbar'])
         plt.xlabel(labels['xlabel'], fontsize=15)
         plt.ylabel(labels['ylabel'], fontsize=15)
-<<<<<<< HEAD
-        plt.title(title, fontsize=16)
-
-        #  hours_xticks = []
-        #  print(len(locs), len(hours_xticks))
-        #  for loc in locs:
-        #      hour = str(int(loc)) + ':' + str(int((loc - int(loc)) * 60))
-        #      if hour.split(':')[-1] == '0':
-        #          hour += '0'
-        #      print(loc, hour)
-        #      hours_xticks.append(hour)
-        plt.xticks(locs, hours_xticks)
-=======
         plt.tick_params(labelsize=14)
 
         hours_xticks = []
@@ -374,9 +346,6 @@ class ECallistoFitsFile(FitsFile):
 
         if plot_filename is None:
             plot_filename = title
->>>>>>> xticks
-
-        plt.tick_params(labelsize=14)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
