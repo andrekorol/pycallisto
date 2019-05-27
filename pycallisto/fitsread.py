@@ -277,8 +277,12 @@ class ECallistoFitsFile(FitsFile):
         locs, xticks_labels = plt.xticks()
         for loc in locs:
             hour = str(int(loc)) + ':' + str(int((loc - int(loc)) * 60))
-            if len(hour.split(':')[-1]) == 1:
+            if hour.split(':')[-1] == '0':
                 hour += '0'
+            if len(hour.split(':')[0]) == 1:
+                hour = '0' + hour
+            if len(hour.split(':')[-1]) == 1:
+                hour = hour.split(':')[0] + ":0" + hour.split(':')[-1]
             hours_xticks.append(hour)
 
         print(locs)
