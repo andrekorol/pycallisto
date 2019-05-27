@@ -26,6 +26,8 @@ import os
 from tkinter import messagebox
 #  from tkinter import filedialog
 import math
+import json
+import itertools
 from pycallisto import urlget
 
 
@@ -185,9 +187,10 @@ class ECallistoFitsFile(FitsFile):
         plt.close('all')
 
     @staticmethod
-    def plot_fits_files_list(files_list: list, title: str, plot_filename: str,
-                             lang: str = 'en', start_freq: int = None,
-                             end_freq: int = None, show: bool = False):
+    def plot_fits_files_list(files_list: list, title: str = None,
+                             plot_filename: str = None, lang: str = 'en',
+                             start_freq: int = None, end_freq: int = None,
+                             show: bool = False):
 
         extended_db = None
         ext_time_axis = None
@@ -232,6 +235,7 @@ class ECallistoFitsFile(FitsFile):
 
         plt.gca().invert_yaxis()
 
+<<<<<<< HEAD
         hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
         minutes_delta = hours_delta * 60
         print(minutes_delta)
@@ -244,6 +248,21 @@ class ECallistoFitsFile(FitsFile):
             hour = hour + timedelta(minutes=ticks_interval)
             hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
 
+=======
+        #  hours_delta = round(ext_time_axis[-1], 2) -
+        #  round(ext_time_axis[0], 2)
+        #  minutes_delta = hours_delta * 60
+        #  ticks_interval = minutes_delta / len(locs)
+        #  print(ticks_interval)
+        #  exit(0)
+        #  hours_xticks = []
+        #  hour = timedelta(hours=round(ext_time_axis[0], 2))
+        #  hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+        #  while hour != timedelta(hours=round(ext_time_axis[-1], 2)):
+        #      hour = hour + timedelta(minutes=ticks_interval)
+        #      hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+        #
+>>>>>>> xticks
         #  plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
         labels = {
             'en': {'colorbar': 'dB above background',
@@ -258,6 +277,7 @@ class ECallistoFitsFile(FitsFile):
         plt.colorbar(label=labels['colorbar'])
         plt.xlabel(labels['xlabel'], fontsize=15)
         plt.ylabel(labels['ylabel'], fontsize=15)
+<<<<<<< HEAD
         plt.title(title, fontsize=16)
 
         #  hours_xticks = []
@@ -269,6 +289,92 @@ class ECallistoFitsFile(FitsFile):
         #      print(loc, hour)
         #      hours_xticks.append(hour)
         plt.xticks(locs, hours_xticks)
+=======
+        plt.tick_params(labelsize=14)
+
+        hours_xticks = []
+        locs, xticks_labels = plt.xticks()
+        for loc in locs:
+            hour = str(int(loc)) + ':' + str(int((loc - int(loc)) * 60))
+            if hour.split(':')[-1] == '0':
+                hour += '0'
+            if len(hour.split(':')[-1]) == 1:
+                hour = hour.split(':')[0] + ":0" + hour.split(':')[-1]
+            hours_xticks.append(hour)
+
+        #  print(locs)
+        #  print(hours_xticks)
+        #  hours_xticks.pop()
+
+        initial_hour = timedelta(hours=round(ext_time_axis[0], 2))
+
+        print(':'.join(str(initial_hour).split(':')[:-1]), hours_xticks[0])
+        initial_seconds = initial_hour.seconds
+        initial_xticks_seconds = int(hours_xticks[0].split(':')[0]) * 3600
+        initial_xticks_seconds += int(hours_xticks[0].split(':')[-1]) * 60
+
+        if initial_seconds != initial_xticks_seconds:
+            hours_xticks.pop(0)
+            locs = locs[1:]
+
+        print("initial_seconds =", initial_seconds)
+        print("initial_xticks_seconds =", initial_xticks_seconds)
+        for index, item in enumerate(hours_xticks):
+            if len(item.split(':')[0]) == 1:
+                hours_xticks[index] = '0' + item
+
+        # TODO: Fix line below to only remove item if last hour is greater
+        # than last hour in FITS file
+        # final_hour = extended_time_axis[-1]...
+        final_hour = timedelta(hours=round(ext_time_axis[-1], 2))
+        final_seconds = final_hour.seconds
+        final_xticks_seconds = int(hours_xticks[-1].split(':')[0]) * 3600
+        final_xticks_seconds += int(hours_xticks[-1].split(':')[-1]) * 60
+
+        if final_seconds != final_xticks_seconds:
+            hours_xticks.pop()
+            #  plt.xticks(locs[:-1], hours_xticks)
+            locs = locs[:-1]
+        #  else:
+        #      plt.xticks(locs, hours_xticks)
+
+        if initial_xticks_seconds != initial_seconds:
+            plt.xticks(locs, hours_xticks)
+        else:
+            hours_delta = round(ext_time_axis[-1], 2)
+            hours_delta -= round(ext_time_axis[0], 2)
+            minutes_delta = hours_delta * 60
+            ticks_interval = int(round(minutes_delta / (len(locs) - 1), 0))
+            print("ticks_interval =", ticks_interval)
+            final_xticks = []
+            hour = initial_hour
+            final_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+
+            for _ in itertools.repeat(None, len(locs) - 1):
+                hour = hour + timedelta(minutes=ticks_interval)
+                final_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+
+            print("final_xticks =", final_xticks)
+            plt.xticks(locs, final_xticks)
+
+        #  print("final_seconds =", final_seconds)
+        #  print("final_xticks_seconds =", final_xticks_seconds)
+        final_hour_str = final_hour.__str__()
+        if len(final_hour_str.split(':')[0]) == 1:
+            final_hour_str = '0' + final_hour_str
+        if title is None:
+            # Define plot's title
+            title_start = '_'.join(files_list[0].split('_')[:-1])
+            freq_band = files_list[-1].split('_')[-1].split('.')[0]
+            title_end = ''.join(final_hour_str.split(':'))
+            title_end = '_'.join([title_end, freq_band])
+            title = '_'.join([title_start, title_end])
+            print(title)
+        plt.title(title, fontsize=16)
+
+        if plot_filename is None:
+            plot_filename = title
+>>>>>>> xticks
 
         plt.tick_params(labelsize=14)
 
@@ -281,6 +387,14 @@ class ECallistoFitsFile(FitsFile):
         plt.clf()
         plt.cla()
         plt.close('all')
+
+    @staticmethod
+    def plot_json_fits_file(filename):
+        with open(filename) as json_file:
+            json_str = json_file.read()
+            json_data = json.loads(json_str)
+        for fits_list in json_data:
+            ECallistoFitsFile.plot_fits_files_list(fits_list)
 
     def set_fits_linear_regression(self):
         hdul_dataset = self.hdul_dataset
