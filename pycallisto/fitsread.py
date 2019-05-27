@@ -257,7 +257,6 @@ class ECallistoFitsFile(FitsFile):
         plt.xlabel(labels['xlabel'], fontsize=15)
         plt.ylabel(labels['ylabel'], fontsize=15)
         plt.title(title, fontsize=16)
-        plt.tick_params(labelsize=14)
 
         #  hours_xticks = []
         locs, xticks_labels = plt.xticks()
@@ -269,6 +268,8 @@ class ECallistoFitsFile(FitsFile):
         #      print(loc, hour)
         #      hours_xticks.append(hour)
         plt.xticks(locs, hours_xticks)
+
+        plt.tick_params(labelsize=14)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
