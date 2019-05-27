@@ -291,7 +291,7 @@ class ECallistoFitsFile(FitsFile):
         if ':'.join(str(initial_hour).split(':')[:-1]) != hours_xticks[0]:
             hours_xticks.pop(0)
             locs = locs[1:]
-        initial_minutes = initial_hour.seconds()
+        initial_minutes = initial_hour.seconds
         print("initial_minutes =", initial_minutes)
         for index, item in enumerate(hours_xticks):
             if len(item.split(':')[0]) == 1:
