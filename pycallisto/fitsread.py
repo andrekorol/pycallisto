@@ -266,6 +266,7 @@ class ECallistoFitsFile(FitsFile):
             hour = str(int(loc)) + ':' + str(int((loc - int(loc)) * 60))
             if hour.split(':')[-1] == '0':
                 hour += '0'
+            print(loc, hour)
             hours_xticks.append(hour)
         plt.xticks(locs, hours_xticks)
 
