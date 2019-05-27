@@ -271,7 +271,7 @@ class ECallistoFitsFile(FitsFile):
         print(locs)
         print(hours_xticks)
         hours_xticks.pop()
-        plt.xticks(locs, hours_xticks)
+        plt.xticks(locs[:-1], hours_xticks)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
