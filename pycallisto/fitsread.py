@@ -311,7 +311,7 @@ class ECallistoFitsFile(FitsFile):
 
         hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
         minutes_delta = hours_delta * 60
-        ticks_interval = minutes_delta / len(locs)
+        ticks_interval = math.ceil(minutes_delta / len(locs))
         print(ticks_interval)
         exit(0)
 
