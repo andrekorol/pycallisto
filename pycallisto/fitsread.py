@@ -27,6 +27,7 @@ from tkinter import messagebox
 #  from tkinter import filedialog
 import math
 import json
+import itertools
 from pycallisto import urlget
 
 
@@ -315,11 +316,11 @@ class ECallistoFitsFile(FitsFile):
         print("ticks_interval =", ticks_interval)
         final_xticks = []
         hour = initial_hour
-        counter = 0
-        for loc in locs:
-            hour = hour + timedelta(minutes=ticks_interval * counter)
+        final_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+
+        for _ in itertools.repeat(None, len(locs) - 1):
+            hour = hour + timedelta(minutes=ticks_interval)
             final_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
-            counter += 1
 
         print("final_xticks =", final_xticks)
 
