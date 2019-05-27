@@ -189,10 +189,6 @@ class ECallistoFitsFile(FitsFile):
                              lang: str = 'en', start_freq: int = None,
                              end_freq: int = None, show: bool = False):
 
-        plt.clf()
-        plt.cla()
-        plt.close('all')
-
         extended_db = None
         ext_time_axis = None
         plt.figure(1, figsize=(11, 6))
@@ -268,6 +264,8 @@ class ECallistoFitsFile(FitsFile):
         locs, xticks_labels = plt.xticks()
         for loc in locs:
             hour = str(int(loc)) + ':' + str(int((loc - int(loc)) * 60))
+            if hour.split(':')[-1] == '0':
+                hour += '0'
             print(hour)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
