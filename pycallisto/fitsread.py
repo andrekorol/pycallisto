@@ -270,6 +270,7 @@ class ECallistoFitsFile(FitsFile):
             hours_xticks.append(hour)
         print(locs)
         print(hours_xticks)
+        hours_xticks.pop()
         plt.xticks(locs, hours_xticks)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
