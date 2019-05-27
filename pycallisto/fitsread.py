@@ -292,7 +292,7 @@ class ECallistoFitsFile(FitsFile):
             hours_xticks.pop(0)
             locs = locs[1:]
 
-        for item, index in enumerate(hours_xticks):
+        for index, item in enumerate(hours_xticks):
             if len(item.split(':')[0]) == 1:
                 hours_xticks[index] = '0' + item
 
