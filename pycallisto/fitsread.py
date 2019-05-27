@@ -263,9 +263,9 @@ class ECallistoFitsFile(FitsFile):
             # Define plot's title
             title_start = '_'.join(files_list[0].split('_')[:-1])
             freq_band = files_list[-1].split('_')[-1].split('.')[0]
-            title_end = '_'.join([files_list[-1].split('_')[-2],
-                                 freq_band])
-            title = '_'.join([title_start, title_end])
+            #  title_end = '_'.join([files_list[-1].split('_')[-2],
+            #  freq_band])
+            title = '_'.join([title_start, freq_band])
         plt.title(title, fontsize=16)
 
         plt.tick_params(labelsize=14)
@@ -277,7 +277,7 @@ class ECallistoFitsFile(FitsFile):
         locs, xticks_labels = plt.xticks()
         for loc in locs:
             hour = str(int(loc)) + ':' + str(int((loc - int(loc)) * 60))
-            if hour.split(':')[-1] == '0':
+            if len(hour.split(':')[-1]) == 1:
                 hour += '0'
             hours_xticks.append(hour)
 
