@@ -320,8 +320,16 @@ class ECallistoFitsFile(FitsFile):
             print("minutes_delta =", minutes_delta)
             ticks_interval = int(round(minutes_delta / (len(locs) - 1), 0))
             print("ticks_interval =", ticks_interval)
+            final_xticks = []
+            hour = timedelta(minutes=first_minutes)
+            final_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
 
-            plt.xticks(locs, hours_xticks)
+            for _ in itertools.repeat(None, len(locs) - 1):
+                hour = hour + timedelta(minutes=ticks_interval)
+                final_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+
+            plt.xticks(locs, final_xticks)
+
         else:
             hours_delta = round(ext_time_axis[-1], 2)
             hours_delta -= round(ext_time_axis[0], 2)
