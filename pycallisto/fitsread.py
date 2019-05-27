@@ -237,8 +237,7 @@ class ECallistoFitsFile(FitsFile):
         #  minutes_delta = hours_delta * 60
         #  ticks_interval = minutes_delta / (len(files_list) + 1)
         #  hours_xticks = []
-        hour = timedelta(hours=round(ext_time_axis[0], 2))
-        print(hour)
+        initial_hour = timedelta(hours=round(ext_time_axis[0], 2))
         #  hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
         #  while hour != timedelta(hours=round(ext_time_axis[-1], 2)):
         #      hour = hour + timedelta(minutes=ticks_interval)
@@ -268,9 +267,12 @@ class ECallistoFitsFile(FitsFile):
             if hour.split(':')[-1] == '0':
                 hour += '0'
             hours_xticks.append(hour)
+
         print(locs)
         print(hours_xticks)
         hours_xticks.pop()
+        if str(initial_hour).split(':')[:-1] != hours_xticks[0]:
+            hours_xticks.pop(0)
         plt.xticks(locs[:-1], hours_xticks)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
