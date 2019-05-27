@@ -314,13 +314,13 @@ class ECallistoFitsFile(FitsFile):
         final_hour_str = final_hour.__str__()
         if len(final_hour_str.split(':')[0]) == 1:
             final_hour_str = '0' + final_hour_str
-        print(final_hour_str)
-        exit(0)
         if title is None:
             # Define plot's title
             title_start = '_'.join(files_list[0].split('_')[:-1])
             freq_band = files_list[-1].split('_')[-1].split('.')[0]
-            title_end = ''.join(final_hour.__str__.split(':'))
+            title_end = ''.join(final_hour_str.split(':'))
+            print(title_end)
+            exit(0)
             title_end = '_'.join([title_end, freq_band])
             title = '_'.join([title_start, title_end])
         plt.title(title, fontsize=16)
