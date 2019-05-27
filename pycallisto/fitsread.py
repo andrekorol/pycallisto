@@ -261,9 +261,6 @@ class ECallistoFitsFile(FitsFile):
         plt.ylabel(labels['ylabel'], fontsize=15)
         plt.tick_params(labelsize=14)
 
-        if plot_filename is None:
-            plot_filename = title
-
         hours_xticks = []
         locs, xticks_labels = plt.xticks()
         for loc in locs:
@@ -323,6 +320,9 @@ class ECallistoFitsFile(FitsFile):
             title = '_'.join([title_start, title_end])
             print(title)
         plt.title(title, fontsize=16)
+
+        if plot_filename is None:
+            plot_filename = title
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
                     bbox_inches='tight')
