@@ -279,8 +279,6 @@ class ECallistoFitsFile(FitsFile):
             hour = str(int(loc)) + ':' + str(int((loc - int(loc)) * 60))
             if hour.split(':')[-1] == '0':
                 hour += '0'
-            if len(hour.split(':')[0]) == 1:
-                hour = '0' + hour
             if len(hour.split(':')[-1]) == 1:
                 hour = hour.split(':')[0] + ":0" + hour.split(':')[-1]
             hours_xticks.append(hour)
@@ -288,10 +286,16 @@ class ECallistoFitsFile(FitsFile):
         print(locs)
         print(hours_xticks)
         hours_xticks.pop()
+
         print(':'.join(str(initial_hour).split(':')[:-1]), hours_xticks[0])
         if ':'.join(str(initial_hour).split(':')[:-1]) != hours_xticks[0]:
             hours_xticks.pop(0)
             locs = locs[1:]
+
+        for item, index in enumerate(hours_xticks):
+            if len(item.split(':')[0]) == 1:
+                hours_xticks[index] = '0' + item
+
         plt.xticks(locs[:-1], hours_xticks)
 
         plt.savefig(os.path.join(os.getcwd(), plot_filename) + '.png',
