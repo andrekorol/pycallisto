@@ -323,6 +323,7 @@ class ECallistoFitsFile(FitsFile):
             final_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
 
         print("final_xticks =", final_xticks)
+        plt.xticks(locs, final_xticks)
 
         #  print("final_seconds =", final_seconds)
         #  print("final_xticks_seconds =", final_xticks_seconds)
