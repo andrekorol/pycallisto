@@ -234,21 +234,20 @@ class ECallistoFitsFile(FitsFile):
 
         plt.gca().invert_yaxis()
 
-        locs, xticks_labels = plt.xticks()
-
-        hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
-        minutes_delta = hours_delta * 60
-        ticks_interval = minutes_delta / len(locs)
-        print(ticks_interval)
-        exit(0)
-        hours_xticks = []
-        hour = timedelta(hours=round(ext_time_axis[0], 2))
-        hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
-        while hour != timedelta(hours=round(ext_time_axis[-1], 2)):
-            hour = hour + timedelta(minutes=ticks_interval)
-            hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
-
-        plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
+        #  hours_delta = round(ext_time_axis[-1], 2) -
+        #  round(ext_time_axis[0], 2)
+        #  minutes_delta = hours_delta * 60
+        #  ticks_interval = minutes_delta / len(locs)
+        #  print(ticks_interval)
+        #  exit(0)
+        #  hours_xticks = []
+        #  hour = timedelta(hours=round(ext_time_axis[0], 2))
+        #  hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+        #  while hour != timedelta(hours=round(ext_time_axis[-1], 2)):
+        #      hour = hour + timedelta(minutes=ticks_interval)
+        #      hours_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+        #
+        #  plt.xticks(np.arange(len(hours_xticks)), hours_xticks)
         labels = {
             'en': {'colorbar': 'dB above background',
                    'xlabel': 'Time (UT)',
@@ -305,9 +304,16 @@ class ECallistoFitsFile(FitsFile):
 
         if final_seconds != final_xticks_seconds:
             hours_xticks.pop()
-            plt.xticks(locs[:-1], hours_xticks)
-        else:
-            plt.xticks(locs, hours_xticks)
+            #  plt.xticks(locs[:-1], hours_xticks)
+            locs = locs[:-1]
+        #  else:
+        #      plt.xticks(locs, hours_xticks)
+
+        hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
+        minutes_delta = hours_delta * 60
+        ticks_interval = minutes_delta / len(locs)
+        print(ticks_interval)
+        exit(0)
 
         print("final_seconds =", final_seconds)
         print("final_xticks_seconds =", final_xticks_seconds)
