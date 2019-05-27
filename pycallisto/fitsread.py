@@ -310,20 +310,24 @@ class ECallistoFitsFile(FitsFile):
         #  else:
         #      plt.xticks(locs, hours_xticks)
 
-        hours_delta = round(ext_time_axis[-1], 2) - round(ext_time_axis[0], 2)
-        minutes_delta = hours_delta * 60
-        ticks_interval = int(round(minutes_delta / (len(locs) - 1), 0))
-        print("ticks_interval =", ticks_interval)
-        final_xticks = []
-        hour = initial_hour
-        final_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
-
-        for _ in itertools.repeat(None, len(locs) - 1):
-            hour = hour + timedelta(minutes=ticks_interval)
+        if initial_xticks_seconds != initial_seconds:
+            plt.xticks(locs, hours_xticks)
+        else:
+            hours_delta = round(ext_time_axis[-1], 2)
+            hours_delta -= round(ext_time_axis[0], 2)
+            minutes_delta = hours_delta * 60
+            ticks_interval = int(round(minutes_delta / (len(locs) - 1), 0))
+            print("ticks_interval =", ticks_interval)
+            final_xticks = []
+            hour = initial_hour
             final_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
 
-        print("final_xticks =", final_xticks)
-        plt.xticks(locs, final_xticks)
+            for _ in itertools.repeat(None, len(locs) - 1):
+                hour = hour + timedelta(minutes=ticks_interval)
+                final_xticks.append(':'.join(hour.__str__().split(':')[:-1]))
+
+            print("final_xticks =", final_xticks)
+            plt.xticks(locs, final_xticks)
 
         #  print("final_seconds =", final_seconds)
         #  print("final_xticks_seconds =", final_xticks_seconds)
