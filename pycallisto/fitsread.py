@@ -22,6 +22,7 @@ from datetime import timedelta
 import numpy as np
 from astropy.io import fits
 import os
+import fnmatch
 import math
 import json
 import itertools
@@ -33,13 +34,28 @@ class FitsFile(object):
     """Main entry point to the FITS file format"""
     def __init__(self, filename: str = None):
         self.filename = filename
+
+        # Look for the file and set its path
+        matches = []
+        top_dir = os.getcwd()
+        for root, dirs, files in os.walk(top_dir):
+            for name in fnmatch.filter(files, self.filename):
+                matches.append(os.path.join(root, name))
+        if not matches:
+            error_message = f"{self.filename} was not found under the current "
+            error_message += f"working directory ({top_dir})"
+            raise FileNotFoundError(error_message)
+        else:
+            self.file_path = matches[0]
+
+        # Open the FITS file and create a variable for the list of HDUs
+        # (Header Data Unit)
         try:
             self.hdul = fits.open(filename)
         except OSError:
-            message = f"{filename} is not a valid FITS file"
-            raise FitsFileError(message)
-
-        self.file_path = None
+            error_message = f"{filename} is not a valid FITS file "
+            error_message += "(e.g., .fits, .fit, .fit.gz, .fts)"
+            raise FitsFileError(error_message)
 
     def set_filename(self, filename):
         self.filename = filename
