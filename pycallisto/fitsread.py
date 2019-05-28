@@ -22,12 +22,10 @@ from datetime import timedelta
 import numpy as np
 from astropy.io import fits
 import os
-#  from tkinter import Tk
-from tkinter import messagebox
-#  from tkinter import filedialog
 import math
 import json
 import itertools
+from fitserror import FitsFileError
 from pycallisto import urlget
 
 
@@ -35,7 +33,12 @@ class FitsFile(object):
     """Main entry point to the FITS file format"""
     def __init__(self, filename: str = None):
         self.filename = filename
-        self.hdul = None
+        try:
+            self.hdul = fits.open(filename)
+        except OSError:
+            message = f"{filename} is not a valid FITS file"
+            raise FitsFileError(message)
+
         self.file_path = None
 
     def set_filename(self, filename):
@@ -61,17 +64,7 @@ class FitsFile(object):
         return self.file_path
 
     def set_hdul(self):
-        try:
-            self.hdul = fits.open(self.file_path)
-        except FileNotFoundError as e:
-            messagebox.showerror('FileNotFoundError: [Errno 2]',
-                                 'No such file or directory: '
-                                 f'{self.file_path}')
-            raise e
-        except OSError as e:
-            messagebox.showerror('OSError',
-                                 f'{self.file_path} is not a FITS file.')
-            raise e
+        self.hdul = fits.open(self.file_path)
 
     def get_hdul(self):
         return self.hdul
