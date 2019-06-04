@@ -17,16 +17,18 @@
 # You should have received a copy of the GNU General Public License
 # along with Pycallisto. If not, see <https://www.gnu.org/licenses/>.
 
-from matplotlib import pyplot as plt
-from datetime import timedelta
-import numpy as np
-from astropy.io import fits
 import os
 import fnmatch
 import math
 import json
 import itertools
-from pycallisto import fitserror
+from datetime import timedelta
+
+from matplotlib import pyplot as plt
+import numpy as np
+from astropy.io import fits
+
+from pycallisto.fitserror import FitsFileError
 from pycallisto import urlget
 
 
@@ -55,7 +57,7 @@ class FitsFile(object):
         except OSError:
             error_message = f"{filename} is not a valid FITS file "
             error_message += "(e.g., .fits, .fit, .fit.gz, .fts)"
-            raise fitserror.FitsFileError(error_message)
+            raise FitsFileError(error_message)
 
     def set_filename(self, filename):
         self.filename = filename
