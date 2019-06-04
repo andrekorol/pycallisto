@@ -198,6 +198,7 @@ class ECallistoFitsFile(FitsFile):
     @staticmethod
     def plot_fits_files_list(files_list: list, title: str = None,
                              plot_filename: str = None, lang: str = 'en',
+                             start_time: float = None, end_time: float = None,
                              start_freq: int = None, end_freq: int = None,
                              show: bool = False):
 
@@ -241,6 +242,9 @@ class ECallistoFitsFile(FitsFile):
 
         if start_freq is not None or end_freq is not None:
             plt.ylim(start_freq, end_freq)
+
+        if start_time is not None or end_time is not None:
+            plt.xlim(start_time, end_time)
 
         plt.gca().invert_yaxis()
 
