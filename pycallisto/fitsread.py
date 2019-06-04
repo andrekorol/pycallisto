@@ -34,32 +34,12 @@ from pycallisto import urlget
 
 class FitsFile(object):
     """Main entry point to the FITS file format"""
-    def __init__(self, filename: str = None):
-        self.filename = filename
+    def __init__(self, filename: str):
+        self.set_filename(filename)
+        self.set_file_path()
+        self.set_hdul()
 
-        # Look for the file and set its path
-        matches = []
-        top_dir = os.getcwd()
-        for root, dirs, files in os.walk(top_dir):
-            for name in fnmatch.filter(files, self.filename):
-                matches.append(os.path.join(root, name))
-        if not matches:
-            error_message = f"{self.filename} was not found under the current "
-            error_message += f"working directory ({top_dir})"
-            raise FileNotFoundError(error_message)
-        else:
-            self.file_path = matches[0]
-
-        # Open the FITS file and create a variable for the list of HDUs
-        # (Header Data Unit)
-        try:
-            self.hdul = fits.open(filename)
-        except OSError:
-            error_message = f"{filename} is not a valid FITS file "
-            error_message += "(e.g., .fits, .fit, .fit.gz, .fts)"
-            raise FitsFileError(error_message)
-
-    def set_filename(self, filename):
+    def set_filename(self, filename: str):
         self.filename = filename
 
     def get_filename(self):
@@ -69,20 +49,32 @@ class FitsFile(object):
         if file_path is not None:
             self.file_path = file_path
         else:
-            callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/' \
-                    'solarradio/data/2002-20yy_Callisto/'
-            fits_year = self.filename.split('_')[1][:4]
-            fits_month = self.filename.split('_')[1][4:6]
-            fits_day = self.filename.split('_')[1][-2:]
-            fits_url = f'{callisto_archives}/{fits_year}/{fits_month}/' \
-                       f'{fits_day}/{self.filename}'
-            self.file_path = urlget.download_from_url(fits_url)
+            # Look for the file and set its path
+            matches = []
+            top_dir = os.getcwd()
+            for root, dirs, files in os.walk(top_dir):
+                for name in fnmatch.filter(files, self.filename):
+                    matches.append(os.path.join(root, name))
+            if not matches:
+                error_message = f"{self.filename} was not found under the "
+                error_message += f"current working directory ({top_dir})"
+                raise FileNotFoundError(error_message)
+            else:
+                self.file_path = matches[0]
 
     def get_file_path(self):
         return self.file_path
 
     def set_hdul(self):
-        self.hdul = fits.open(self.file_path)
+        """Open the FITS file and create a variable for the list of HDUs
+        (Header Data Unit)
+        """
+        try:
+            self.hdul = fits.open(self.filename)
+        except OSError:
+            error_message = f"{self.filename} is not a valid FITS file "
+            error_message += "(e.g., .fits, .fit, .fit.gz, .fts)"
+            raise FitsFileError(error_message)
 
     def get_hdul(self):
         return self.hdul
@@ -96,18 +88,28 @@ class FitsFile(object):
 
 class ECallistoFitsFile(FitsFile):
     def __init__(self, filename: str = None):
-        FitsFile.__init__(self, filename)
-        self.hdul_dataset = {}
+        try:
+            FitsFile.__init__(self, filename)
+        except FileNotFoundError:
+            callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/' \
+                    'solarradio/data/2002-20yy_Callisto/'
+            fits_year = self.filename.split('_')[1][:4]
+            fits_month = self.filename.split('_')[1][4:6]
+            fits_day = self.filename.split('_')[1][-2:]
+            fits_url = f'{callisto_archives}/{fits_year}/{fits_month}/' \
+                       f'{fits_day}/{self.filename}'
+            self.set_file_path(urlget.download_from_url(fits_url))
+
+            self.set_hdul()
+
+        self.set_hdul_dataset()
 
     @staticmethod
     def digit_to_voltage(digits):
         return digits / 255.0 * 2500.0
 
     def set_hdul_dataset(self):
-        if self.hdul is None:
-            if self.file_path is None:
-                self.set_file_path()
-            self.set_hdul()
+        self.hdul_dataset = {}
         hdul_dataset = self.hdul_dataset
         hdul = self.hdul
 
@@ -208,20 +210,11 @@ class ECallistoFitsFile(FitsFile):
         ext_time_axis = None
         plt.figure(1, figsize=(11, 6))
         fitsfile = None
-        callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/solarradio/' \
-            'data/2002-20yy_Callisto/'
+
         for file in files_list:
             fits_filename = file.split(os.sep)[-1]
-            fits_year = fits_filename.split('_')[1][:4]
-            fits_month = fits_filename.split('_')[1][4:6]
-            fits_day = fits_filename.split('_')[1][-2:]
-            fits_url = f'{callisto_archives}/{fits_year}/{fits_month}/' \
-                f'{fits_day}/{fits_filename}'
-            fits_filename = urlget.download_from_url(fits_url)
 
             fitsfile = ECallistoFitsFile(fits_filename)
-            fitsfile.set_file_path(fits_filename)
-            fitsfile.set_hdul_dataset()
 
             if extended_db is None and ext_time_axis is None:
                 extended_db = fitsfile.hdul_dataset['db']
