@@ -26,7 +26,7 @@ import fnmatch
 import math
 import json
 import itertools
-from pycallisto.fitserror import FitsFileError
+from pycallisto import fitserror
 from pycallisto import urlget
 
 
@@ -55,7 +55,7 @@ class FitsFile(object):
         except OSError:
             error_message = f"{filename} is not a valid FITS file "
             error_message += "(e.g., .fits, .fit, .fit.gz, .fts)"
-            raise FitsFileError(error_message)
+            raise fitserror.FitsFileError(error_message)
 
     def set_filename(self, filename):
         self.filename = filename
