@@ -26,7 +26,7 @@ import fnmatch
 import math
 import json
 import itertools
-from fitserror import FitsFileError
+from pycallisto.fitserror import FitsFileError
 from pycallisto import urlget
 
 
