@@ -1,8 +1,9 @@
-# Pycallisto: Python tools for analyzing data from the e-Callisto International
-# Network of Solar Radio Spectrometers
+# Urlget: Helper function for downloading files from a given URL
 # Copyright (C) 2019 Andre Rossi Korol
 #
 # This file is part of Pycallisto.
+# Pycallisto: Python tools for analyzing data from the e-Callisto International
+# Network of Solar Radio Spectrometers
 #
 # Pycallisto is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
