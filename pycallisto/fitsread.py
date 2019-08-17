@@ -86,15 +86,13 @@ class FitsFile(object):
 class ECallistoFitsFile(FitsFile):
     def __init__(self, filename: str = None):
         FitsFile.__init__(self, filename)
-
-        self.set_hdul_dataset()
+        self.hdul_dataset = {}
 
     @staticmethod
     def digit_to_voltage(digits):
         return digits / 255.0 * 2500.0
 
     def set_hdul_dataset(self):
-        self.hdul_dataset = {}
         hdul_dataset = self.hdul_dataset
         hdul = self.hdul
 
