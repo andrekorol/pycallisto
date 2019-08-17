@@ -66,9 +66,7 @@ class FitsFile(object):
         return self.file_path
 
     def set_hdul(self):
-        """Open the FITS file and create a variable for the list of HDUs
-        (Header Data Unit)
-        """
+        """Open the FITS file and return the list of HDUs (Header Data Unit)"""
         try:
             return fits.open(self.filename)
         except OSError:
