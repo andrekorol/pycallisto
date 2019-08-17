@@ -35,9 +35,9 @@ from pycallisto import urlget
 class FitsFile(object):
     """Main entry point to the FITS file format"""
     def __init__(self, filename: str):
-        self.set_filename(filename)
-        self.set_file_path()
-        self.set_hdul()
+        self.filename = filename
+        self.file_path = self.set_file_path()
+        self.hdul = self.set_hdul()
 
     def set_filename(self, filename: str):
         self.filename = filename
@@ -60,7 +60,7 @@ class FitsFile(object):
                 error_message += f"current working directory ({top_dir})"
                 raise FileNotFoundError(error_message)
             else:
-                self.file_path = matches[0]
+                return matches[0]
 
     def get_file_path(self):
         return self.file_path
@@ -70,7 +70,7 @@ class FitsFile(object):
         (Header Data Unit)
         """
         try:
-            self.hdul = fits.open(self.filename)
+            return fits.open(self.filename)
         except OSError:
             error_message = f"{self.filename} is not a valid FITS file "
             error_message += "(e.g., .fits, .fit, .fit.gz, .fts)"
