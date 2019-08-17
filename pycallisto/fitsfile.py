@@ -35,8 +35,10 @@ class FitsFile(object):
     """Main entry point to the FITS file format"""
     def __init__(self, filename: str):
         self.filename = filename
-        self.file_path = self.set_file_path()
-        self.hdul = self.set_hdul()
+        self.file_path = None
+        self.set_file_path()
+        self.hdul = None
+        self.set_hdul()
 
     def set_filename(self, filename: str):
         self.filename = filename
@@ -59,7 +61,7 @@ class FitsFile(object):
                 error_message += f"current working directory ({top_dir})"
                 raise FileNotFoundError(error_message)
             else:
-                return matches[0]
+                self.file_path = matches[0]
 
     def get_file_path(self):
         return self.file_path
@@ -67,7 +69,7 @@ class FitsFile(object):
     def set_hdul(self):
         """Open the FITS file and return the list of HDUs (Header Data Unit)"""
         try:
-            return fits.open(self.filename)
+            self.hdul = fits.open(self.filename)
         except OSError:
             error_message = f"{self.filename} is not a valid FITS file "
             error_message += "(e.g., .fits, .fit, .fit.gz, .fts)"
