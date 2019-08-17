@@ -29,7 +29,6 @@ import numpy as np
 from astropy.io import fits
 
 from pycallisto.fitserror import FitsFileError
-from pycallisto import urlget
 
 
 class FitsFile(object):
@@ -86,19 +85,7 @@ class FitsFile(object):
 
 class ECallistoFitsFile(FitsFile):
     def __init__(self, filename: str = None):
-        try:
-            FitsFile.__init__(self, filename)
-        except FileNotFoundError:
-            callisto_archives = 'http://soleil80.cs.technik.fhnw.ch/' \
-                    'solarradio/data/2002-20yy_Callisto/'
-            fits_year = self.filename.split('_')[1][:4]
-            fits_month = self.filename.split('_')[1][4:6]
-            fits_day = self.filename.split('_')[1][-2:]
-            fits_url = f'{callisto_archives}/{fits_year}/{fits_month}/' \
-                       f'{fits_day}/{self.filename}'
-            self.set_file_path(urlget.download_from_url(fits_url))
-
-            self.set_hdul()
+        FitsFile.__init__(self, filename)
 
         self.set_hdul_dataset()
 
