@@ -89,6 +89,7 @@ class ECallistoFitsFile(FitsFile):
     def __init__(self, filename: str = None):
         FitsFile.__init__(self, filename)
         self.hdul_dataset = {}
+        self.set_hdul_dataset()
 
     @staticmethod
     def digit_to_voltage(digits):
