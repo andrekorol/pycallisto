@@ -360,6 +360,31 @@ class ECallistoFitsFile(FitsFile):
     def get_fits_linear_regression_function(self):
         return self.hdul_dataset['lin_reg_fn']
 
+    @staticmethod
+    def fits_list_linear_regression(file_list):
+        """Apply linear regression on extended time and frequency axis"""
+        extended_time = None
+        extended_freq = None
+
+        for name in file_list:
+            filename = name.split(os.sep)[-1]
+
+            fitsfile = ECallistoFitsFile(filename)
+            dataset = fitsfile.hdul_dataset
+
+            if extended_time is None and extended_freq is None:
+                extended_time = dataset['time_axis']
+                extended_freq = dataset['freq_axis']
+            else:
+                extended_time = np.hstack((extended_time,
+                                           dataset['time_axis']))
+                extended_freq = np.hstack((extended_freq,
+                                           dataset['freq_axis']))
+        lin_reg = np.plyfit(extended_time, extended_freq)
+        lin_reg_fn = np.poly1d(lin_reg)
+
+        return lin_reg_fn
+
     def plot_fits_linear_regression(self, show=False, save=True):
         hdul_dataset = self.hdul_dataset
         plt.gca().invert_yaxis()
