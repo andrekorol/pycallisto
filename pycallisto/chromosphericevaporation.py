@@ -25,8 +25,8 @@ from pycallisto.fitsfile import ECallistoFitsFile
 
 
 class ChromosphericEvaporationFitsFile(ECallistoFitsFile):
-    def __init__(self, filename: str = None):
-        ECallistoFitsFile.__init__(self, filename)
+    def __init__(self, filename, filepath=""):
+        ECallistoFitsFile.__init__(self, filename, filepath)
         self.front = {}
 
     def set_front_velocity(self, inf_front_time,
