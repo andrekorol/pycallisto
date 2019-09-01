@@ -31,72 +31,42 @@ from astropy.io import fits
 from pycallisto.fitserror import FitsFileError
 
 
+def digit_to_voltage(digits):
+        return digits / 255.0 * 2500.0
+
+
 class FitsFile(object):
-    """Main entry point to the FITS file format"""
-    def __init__(self, filename: str):
-        self.filename = filename
-        self.file_path = None
-        self.set_file_path()
-        self.hdul = None
-        self.set_hdul()
-
-    def set_filename(self, filename: str):
-        self.filename = filename
-
-    def get_filename(self):
-        return self.filename
-
-    def set_file_path(self, file_path: str = None):
-        if file_path is not None:
-            self.file_path = file_path
+    """Main entry point to the FITS file format."""
+    def __init__(self, filename, filepath=""):
+        self.filename = filename  # Name of the FITS file
+        if filepath:
+            self.filepath = filepath  # Path to the FITS file
         else:
             # Look for the file and set its path
             matches = []
             top_dir = os.getcwd()
-            for root, dirs, files in os.walk(top_dir):
+            for root, _, files in os.walk(top_dir):
                 for name in fnmatch.filter(files, self.filename):
                     matches.append(os.path.join(root, name))
             if not matches:
                 error_message = f"{self.filename} was not found under the "
-                error_message += f"current working directory ({top_dir})"
+                error_message += f"current working directory ({top_dir})."
                 raise FileNotFoundError(error_message)
             else:
-                self.file_path = matches[0]
-
-    def get_file_path(self):
-        return self.file_path
-
-    def set_hdul(self):
-        """Open the FITS file and return the list of HDUs (Header Data Unit)"""
+                self.filepath = matches[0]
         try:
-            self.hdul = fits.open(self.filename)
+            self.hdul = fits.open(self.filepath)    # List of HDUs
+            # (Header Data Unit)
         except OSError:
             error_message = f"{self.filename} is not a valid FITS file "
             error_message += "(e.g., .fits, .fit, .fit.gz, .fts)"
             raise FitsFileError(error_message)
 
-    def get_hdul(self):
-        return self.hdul
-
-    def close_hdul(self):
-        self.hdul.close()
-
-    def delete_file(self):
-        os.remove(self.file_path)
-
 
 class ECallistoFitsFile(FitsFile):
-    def __init__(self, filename: str = None):
-        FitsFile.__init__(self, filename)
-        self.hdul_dataset = {}
-        self.set_hdul_dataset()
-
-    @staticmethod
-    def digit_to_voltage(digits):
-        return digits / 255.0 * 2500.0
-
-    def set_hdul_dataset(self):
-        hdul_dataset = self.hdul_dataset
+    def __init__(self, filename, filepath=""):
+        FitsFile.__init__(self, filename, filepath)
+        hdul_dataset = {}
         hdul = self.hdul
 
         hdul_dataset['data'] = hdul[0].data.astype(np.float32)
@@ -105,7 +75,7 @@ class ECallistoFitsFile(FitsFile):
         hdul_dataset['dref'] = hdul_dataset['data'] - \
             np.min(hdul_dataset['data'])
         # conversion digit->voltage->into db
-        hdul_dataset['db'] = self.digit_to_voltage(hdul_dataset['dref']) / 25.4
+        hdul_dataset['db'] = digit_to_voltage(hdul_dataset['dref']) / 25.4
         hdul_dataset['db_median'] = np.median(hdul_dataset['db'], axis=1,
                                               keepdims=True)
         hdul_dataset['hh'] = float(hdul[0].header['TIME-OBS'].split(':')[0])
@@ -120,16 +90,14 @@ class ECallistoFitsFile(FitsFile):
         hdul_dataset['rows'] = hdul_dataset['data'].shape[0]
         hdul_dataset['columns'] = hdul_dataset['data'].shape[1]
         hdul_dataset['dt'] = hdul_dataset['time'][1] - hdul_dataset['time'][0]
-        hdul_dataset['time_axis'] = (hdul_dataset['start_time']
-                                     + hdul_dataset['dt'] *
+        hdul_dataset['time_axis'] = (hdul_dataset['start_time'] +
+                                     hdul_dataset['dt'] *
                                      np.arange(hdul_dataset['columns'])) / 3600
         hdul_dataset['freq_axis'] = np.linspace(hdul_dataset['frequency'][0],
                                                 hdul_dataset['frequency'][-1],
                                                 3600)
-        self.close_hdul()
-
-    def get_hdul_dataset(self):
-        return self.hdul_dataset
+        self.hdul_dataset = hdul_dataset
+        self.hdul.close()
 
     def plot_db_above_background(self, show=False, save=True):
         plt.figure(1, figsize=(11, 6))
@@ -149,7 +117,7 @@ class ECallistoFitsFile(FitsFile):
         plt.title(self.filename, fontsize=16)
         plt.tick_params(labelsize=14)
         if save:
-            img_filename = '.'.join(self.file_path.split('.')[:-2]) + '.png'
+            img_filename = '.'.join(self.filepath.split('.')[:-2]) + '.png'
             plt.savefig(img_filename, bbox_inches='tight')
         if show:
             plt.show()
@@ -177,7 +145,7 @@ class ECallistoFitsFile(FitsFile):
         plt.title(self.filename, fontsize=16)
         plt.tick_params(labelsize=14)
         if save:
-            img_filename = '.'.join(self.file_path.split('.')[:-2]) + '.png'
+            img_filename = '.'.join(self.filepath.split('.')[:-2]) + '.png'
             plt.savefig(img_filename, bbox_inches='tight')
         if show:
             plt.show()
@@ -210,7 +178,6 @@ class ECallistoFitsFile(FitsFile):
                                          fitsfile.hdul_dataset['db']))
                 ext_time_axis = np.hstack((ext_time_axis,
                                            fitsfile.hdul_dataset['time_axis']))
-            fitsfile.delete_file()
         extended_db_median = np.median(extended_db, axis=1, keepdims=True)
         plt.imshow(extended_db - extended_db_median, cmap='magma',
                    norm=plt.Normalize(fitsfile.hdul_dataset['v_min'],
@@ -259,7 +226,7 @@ class ECallistoFitsFile(FitsFile):
         plt.tick_params(labelsize=14)
 
         hours_xticks = []
-        locs, xticks_labels = plt.xticks()
+        locs, _ = plt.xticks()
         for loc in locs:
             hour = str(int(loc)) + ':' + str(int((loc - int(loc)) * 60))
             if hour.split(':')[-1] == '0':
@@ -409,7 +376,7 @@ class ECallistoFitsFile(FitsFile):
                   f'{intercept:.2f} + ({slope:.2f}t)', fontsize=16)
         plt.tick_params(labelsize=14)
         if save:
-            img_filename = '.'.join(self.file_path.split('.')[:-2]) +\
+            img_filename = '.'.join(self.filepath.split('.')[:-2]) +\
                            'linear_regression.png'
             plt.savefig(img_filename, bbox_inches='tight')
         if show:
