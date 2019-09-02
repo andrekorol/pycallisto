@@ -31,12 +31,14 @@ class ChromosphericEvaporationFitsFile(ECallistoFitsFile):
 
     def set_front_velocity(self, inf_front_time,
                            sup_front_time,
+                           lin_reg_fn=None,
                            velocity=None):
         front = self.front
         if velocity is not None:
             front['velocity'] = velocity
         else:
-            lin_reg_fn = self.get_fits_linear_regression_function()
+            if lin_reg_fn is None:
+                lin_reg_fn = self.get_fits_linear_regression_function()
             inf_front_freq = lin_reg_fn(inf_front_time)
             sup_front_freq = lin_reg_fn(sup_front_time)
             front['freq_diff'] = abs(sup_front_freq - inf_front_freq)
