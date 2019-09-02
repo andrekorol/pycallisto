@@ -380,7 +380,7 @@ class ECallistoFitsFile(FitsFile):
                                            dataset['time_axis']))
                 extended_freq = np.hstack((extended_freq,
                                            dataset['freq_axis']))
-        lin_reg = np.polyfit(extended_time, extended_freq)
+        lin_reg = np.polyfit(extended_time, extended_freq, 1)
         lin_reg_fn = np.poly1d(lin_reg)
 
         return lin_reg_fn
