@@ -24,7 +24,7 @@ except ImportError:
 
 config = {
     'name': 'pycallisto',
-    'description': 'Python tools for analyzing data from the e-Callisto '
+    'description': 'Python library for analyzing data from the e-Callisto '
                    'International Network of Solar Radio Spectrometers',
     'author': 'Andre Rossi Korol',
     'url': 'https://github.com/andrekorol/pycallisto',
