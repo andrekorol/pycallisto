@@ -18,21 +18,21 @@
 # You should have received a copy of the GNU General Public License
 # along with PyCallisto. If not, see <https://www.gnu.org/licenses/>.
 
-import os
 import fnmatch
-import json
 import itertools
+import json
+import os
 from datetime import timedelta
 
-from matplotlib import pyplot as plt
 import numpy as np
 from astropy.io import fits
+from matplotlib import pyplot as plt
 
 from pycallisto.fitserror import FitsFileError
 
 
 def digit_to_voltage(digits):
-        return digits / 255.0 * 2500.0
+    return digits / 255.0 * 2500.0
 
 
 class FitsFile(object):
