@@ -407,3 +407,16 @@ class ECallistoFitsFile(FitsFile):
         if show:
             plt.show()
         # TODO: Fix the plot_fits_linear_regression method
+
+    def plot_lin_reg_above_spectrum(self, show=False, save=True):
+        hdul_dataset = self.hdul_dataset
+        plt.figure(1, (11, 6), 800)
+        plt.imshow(hdul_dataset['db'] - hdul_dataset['db-median'],
+                    'magma', plt.Normalize(hdul_dataset['v_min'],
+                    hdul_dataset['v_max']), 'auto', 
+                    extent=[
+                        hdul_dataset['time_axis'][0],
+                        hdul_dataset['time_axis'][-1000],
+                        hdul_dataset['frequency'][-1],
+                        hdul_dataset['frequency'][0]
+                    ])
