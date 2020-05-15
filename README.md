@@ -2,11 +2,15 @@
 
 <h2 align="center">Python library for analyzing data from the e-Callisto International Network of Solar Radio Spectrometers</h1>
 
+<p align="center">
+<a href="https://github.com/andrekorol/pycallisto/blob/master/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg)" /></a>
+</p>
+
 ## Installation and usage
 
 ### Installation
 
-⚠️WARNING⚠️ PyCallisto is still under development, and breaking changes should be expected.
+<span style="font-weight: bold;">⚠️WARNING⚠️ PyCallisto is still under development, and breaking changes should be expected.</span>
 
 PyCallisto is not available on [PyPi](https://pypi.org/) yet but, if you have Git installed, you can get it with:
 
