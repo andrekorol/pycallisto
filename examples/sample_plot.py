@@ -5,4 +5,4 @@ fits_file_list = [
     "BLEN7M_20110809_081504_25.fit.gz",
 ]
 
-fitsfile.ECallistoFitsFile.plot_fits_files_list(fits_file_list)
+fitsfile.ECallistoFitsFile.plot_fits_files_list(fits_file_list, show=True)
