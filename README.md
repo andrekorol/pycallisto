@@ -18,7 +18,7 @@ PyCallisto is not available on [PyPi](https://pypi.org/) yet but, if you have Gi
 
 Otherwise, download it from https://github.com/andrekorol/pycallisto/archive/master.zip and unzip the master branch.
 
-Once inside the package top directory, run the `python setup.py install` as usual.
+Once inside the package top directory, run `python setup.py install` as usual.
 
 ### Usage
 
