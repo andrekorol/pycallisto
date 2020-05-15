@@ -10,7 +10,7 @@
 
 ### Installation
 
-_⚠️WARNING⚠️ PyCallisto is still under development, and breaking changes should be expected._
+**_⚠️WARNING⚠️ PyCallisto is still under development, and breaking changes should be expected._**
 
 PyCallisto is not available on [PyPi](https://pypi.org/) yet but, if you have Git installed, you can get it with:
 
