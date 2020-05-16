@@ -3,7 +3,7 @@
 <h2 align="center">Python library for analyzing data from the e-Callisto International Network of Solar Radio Spectrometers</h1>
 
 <p align="center">
-<a href="https://github.com/andrekorol/pycallisto/blob/master/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
+<a href="https://github.com/andrekorol/pycallisto/blob/master/LICENSE"><img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a>
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 <a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fandrekorol%2Fpycallisto?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fandrekorol%2Fpycallisto.svg?type=shield"/></a>
 </p>
@@ -43,8 +43,9 @@ The resulting plot is:
 
 ## License
 
-PyCallisto is Open Source and licensed under the [MIT License](https://tldrlegal.com/license/mit-license).
-
-You are free to use PyCallisto for commercial or personal purposes. Enjoy!
+PyCallisto is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fandrekorol%2Fpycallisto.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fandrekorol%2Fpycallisto?ref=badge_large)
