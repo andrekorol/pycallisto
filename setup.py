@@ -14,4 +14,5 @@ setup(
     version="0.1.0",
     install_requires=["numpy", "astropy", "matplotlib"],
     packages=["pycallisto"],
+    license="GPL-3.0-or-later",
 )
