@@ -9,7 +9,7 @@ setup(
     "International Network of Solar Radio Spectrometers",
     author="Andre Rossi Korol",
     url="https=//github.com/andrekorol/pycallisto",
-    download_url="https=//github.com/andrekorol/pycallisto/archive/" "master.zip",
+    download_url="https=//github.com/andrekorol/pycallisto/archive/master.zip",
     author_email="anrobits@yahoo.com.br",
     version="0.1.0",
     install_requires=["numpy", "astropy", "matplotlib"],
