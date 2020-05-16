@@ -5,6 +5,7 @@
 <p align="center">
 <a href="https://github.com/andrekorol/pycallisto/blob/master/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fandrekorol%2Fpycallisto?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fandrekorol%2Fpycallisto.svg?type=shield"/></a>
 </p>
 
 ## Installation and usage
@@ -39,3 +40,7 @@ fitsfile.ECallistoFitsFile.plot_fits_files_list(fits_file_list, show=True)
 The resulting plot is:
 
 <p align="center"><img src="assets/img/BLEN7M_20110809_080004_083000_25.png" alt="BLEN7M_20110809_080004_083000_25.png" /></p>
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fandrekorol%2Fpycallisto.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fandrekorol%2Fpycallisto?ref=badge_large)
