@@ -39,7 +39,7 @@ fitsfile.ECallistoFitsFile.plot_fits_files_list(fits_file_list, show=True)
 
 The resulting plot is:
 
-<p align="center"><img src="assets/img/BLEN7M_20110809_080004_083000_25.png" alt="BLEN7M_20110809_080004_083000_25.png" /></p>
+<p align="center"><img src="examples/BLEN7M_20110809_080004_083000_25.png" alt="BLEN7M_20110809_080004_083000_25.png" /></p>
 
 ## [License](https://github.com/andrekorol/pycallisto/blob/master/LICENSE)
 
