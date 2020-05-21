@@ -245,7 +245,8 @@ class ECallistoFitsFile(FitsFile):
             },
         }[lang]
 
-        plt.colorbar(label=labels["colorbar"])
+        cb = plt.colorbar()
+        cb.set_label(label=labels["colorbar"], fontsize=15)
         plt.xlabel(labels["xlabel"], fontsize=15)
         plt.ylabel(labels["ylabel"], fontsize=15)
         plt.tick_params(labelsize=14)
