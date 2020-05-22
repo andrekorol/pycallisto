@@ -12,15 +12,15 @@
 
 ### Installation
 
-**_⚠️WARNING⚠️ PyCallisto is still under development, and breaking changes should be expected._**
+**_⚠️WARNING⚠️ PyCallisto is still under development! Improvements and breaking changes should be expected in upcoming releases!_**
 
-PyCallisto is not available on [PyPi](https://pypi.org/) yet but, if you have Git installed, you can get it with:
+PyCallisto is not available on [PyPi](https://pypi.org/) yet but, you can download a development release at https://github.com/andrekorol/pycallisto/releases.
+
+Otherwise, if you have Git installed and want to test the current unreleased version of PyCallisto, you can get the master branch with:
 
 `git clone https://github.com/andrekorol/pycallisto.git`
 
-Otherwise, download it from https://github.com/andrekorol/pycallisto/archive/master.zip and unzip the master branch.
-
-Once inside the package top directory, run `python setup.py install` as usual.
+Once inside the package top directory, run `python setup.py install` **OR** `pip install .`.
 
 ### Usage
 
