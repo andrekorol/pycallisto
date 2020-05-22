@@ -49,7 +49,8 @@ def savefigure(fitsfile: ECallistoFitsFile, fig: figure.Figure, ext: str) -> str
     # and add the new file extension
     filename = ".".join([pathlib.PurePath(fitsfile.filepath).stem.split(".")[0], ext])
 
-    fig.savefig(filename, bbox_inches="tight")  # TODO Check meaning of bbox_inches
+    # Use tight bbox_inches to remove whitespace around the image
+    fig.savefig(filename, bbox_inches="tight")
 
     return filename
 
