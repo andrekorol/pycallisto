@@ -1,4 +1,4 @@
-# FitsFile: Classes and methods for reading and plotting data from FITS files
+# FitsFile: Classes and methods for reading data from FITS files
 # Copyright (C) 2020 Andre Rossi Korol
 #
 # This file is part of PyCallisto.
@@ -117,7 +117,7 @@ class ECallistoFitsFile(FitsFile):
             ],
         )
         plt.gca().invert_yaxis()
-        plt.colorbar(label="dB above background")
+        # plt.colorbar(label="dB above background")
         plt.xlabel("Time (UT)", fontsize=15)
         plt.ylabel("Frequency (MHz)", fontsize=15)
         plt.title(self.filename, fontsize=16)
@@ -238,7 +238,7 @@ class ECallistoFitsFile(FitsFile):
                 "xlabel": "Time (UT)",
                 "ylabel": "Frequency (MHz)",
             },
-            "pt": {
+            "pt-br": {
                 "colorbar": "dB acima da frequência de fundo",
                 "xlabel": "Tempo (UT)",
                 "ylabel": "Frequência (MHz)",

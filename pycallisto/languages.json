@@ -1,0 +1,12 @@
+{
+  "en": {
+    "xlabel": "Time (UT)",
+    "ylabel": "Frequency (MHz)",
+    "colorbar": "dB above background"
+  },
+  "pt-br": {
+    "xlabel": "Tempo (UT)",
+    "ylabel": "Frequência (MHz)",
+    "colorbar": "dB acima da frequência de fundo"
+  }
+}
