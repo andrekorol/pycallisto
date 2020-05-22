@@ -54,7 +54,8 @@ class FitsPlotTestCase(unittest.TestCase):
 
         plt.gca().invert_yaxis()
 
-        language = "en"
+        # Test a missing language so that it defaults to English
+        language = "ge"
 
         try:
             labels = LANGUAGES[language.lower()]
@@ -69,7 +70,7 @@ class FitsPlotTestCase(unittest.TestCase):
 
         fig = plt.gcf()
 
-        self.test_filename = fitshelpers.save_fits_figure(fitsfile, fig, "png")
+        self.test_filename = fitshelpers.save_fits_figure(fitsfile, fig, ".png")
 
         self.assertEqual(sha3_512(self.original_fitsfile), sha3_512(self.test_fitsfile))
         self.assertEqual(sha3_512(self.original_filename), sha3_512(self.test_filename))
