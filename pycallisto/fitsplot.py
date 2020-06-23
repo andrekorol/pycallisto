@@ -19,8 +19,6 @@
 # along with PyCallisto. If not, see <https://www.gnu.org/licenses/>.
 
 
-from concurrent.futures import ThreadPoolExecutor
-
 from matplotlib import pyplot as plt
 from matplotlib.figure import Figure
 
