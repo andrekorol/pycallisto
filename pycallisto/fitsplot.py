@@ -19,11 +19,12 @@
 # along with PyCallisto. If not, see <https://www.gnu.org/licenses/>.
 
 
+import plotly.express as px
+import plotly.tools as tls
 from matplotlib import pyplot as plt
 from matplotlib.figure import Figure
 
 from .fitsfile import ECallistoFitsFile
-from .fitshelpers import save_fits_figure
 from .pycallistodata import LANGUAGES
 
 
@@ -49,6 +50,11 @@ def fits_plot(
     FigureClass = kwargs.pop("FigureClass", Figure)
     clear = kwargs.pop("clear", None)
 
+    fig = px.imshow(fitsfile.hdul_dataset["db"] - fitsfile.hdul_dataset["db_median"])
+    print(fig)
+    fig.show()
+    return
+
     plt.figure(
         1,
         figsize=figsize,
@@ -66,24 +72,24 @@ def fits_plot(
     cmap = kwargs.pop("cmap", "magma")
     aspect = kwargs.pop("aspect", "auto")
 
-    plt.imshow(
-        fitsfile.hdul_dataset["db"] - fitsfile.hdul_dataset["db_median"],
-        cmap=cmap,
-        norm=plt.Normalize(
-            fitsfile.hdul_dataset["v_min"], fitsfile.hdul_dataset["v_max"]
-        ),
-        aspect=aspect,
-        extent=[
-            fitsfile.hdul_dataset["time_axis"][0],
-            fitsfile.hdul_dataset["time_axis"][-1000],
-            fitsfile.hdul_dataset["frequency"][-1],
-            fitsfile.hdul_dataset["frequency"][0],
-        ],
-        **kwargs
-    )
+    # plt.imshow(
+    #     fitsfile.hdul_dataset["db"] - fitsfile.hdul_dataset["db_median"],
+    #     cmap=cmap,
+    #     norm=plt.Normalize(
+    #         fitsfile.hdul_dataset["v_min"], fitsfile.hdul_dataset["v_max"]
+    #     ),
+    #     aspect=aspect,
+    #     extent=[
+    #         fitsfile.hdul_dataset["time_axis"][0],
+    #         fitsfile.hdul_dataset["time_axis"][-1000],
+    #         fitsfile.hdul_dataset["frequency"][-1],
+    #         fitsfile.hdul_dataset["frequency"][0],
+    #     ],
+    #     **kwargs
+    # )
 
     # Follow the convention of inverting the Frequency axis
-    plt.gca().invert_yaxis()
+    # plt.gca().invert_yaxis()
 
     # Get the labels to use when plotting
     try:
@@ -95,23 +101,27 @@ def fits_plot(
         # and then sending a Pull Request.
         labels = LANGUAGES["en"]
 
-    if show_colorbar:
-        cb = plt.colorbar()
-        cb.set_label(label=labels["colorbar"], fontsize=labels_fontsize)
+    # if show_colorbar:
+    #     cb = plt.colorbar()
+    #     cb.set_label(label=labels["colorbar"], fontsize=labels_fontsize)
 
-    plt.xlabel(labels["xlabel"], fontsize=labels_fontsize)
-    plt.ylabel(labels["ylabel"], fontsize=labels_fontsize)
-    plt.tick_params(labelsize=axis_params_labelsize)
+    # plt.xlabel(labels["xlabel"], fontsize=labels_fontsize)
+    # plt.ylabel(labels["ylabel"], fontsize=labels_fontsize)
+    # plt.tick_params(labelsize=axis_params_labelsize)
 
     # Get the current figure to save it after showing it
-    fig = plt.gcf()
+    # fig = plt.gcf()
 
-    if show:
-        plt.show()
+    # if show:
+    #     plt.show()
 
-    filepath = None
+    # filepath = None
 
-    if save:
-        filepath = save_fits_figure(fitsfile, fig, ext)
+    # if save:
+    #     filepath = save_fits_figure(fitsfile, fig, ext)
 
-    return filepath
+    # # fig = plt.gcf()
+    # plotly_fig = tls.mpl_to_plotly(fig)
+    # plotly.io.show(plotly_fig)
+
+    # return filepath
