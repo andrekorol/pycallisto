@@ -12,7 +12,7 @@ setup(
     download_url="https=//github.com/andrekorol/pycallisto/archive/master.zip",
     author_email="anrobits@yahoo.com.br",
     version="0.3.0",
-    install_requires=["numpy", "astropy", "matplotlib"],
+    install_requires=["numpy", "astropy", "matplotlib", "plotly"],
     packages=["pycallisto"],
     package_data={"pycallisto": ["languages.json"]},
     license="GPL-3.0-or-later",
