@@ -8,9 +8,8 @@ class NumpyEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, np.ndarray):
             return obj.tolist()
-        elif isinstance(obj, np.float32):
+        if isinstance(obj, np.float32):
             return str(obj)
-        return json.JSONEncoder.default(self, obj)
 
 
 def sha3_512(fname: str, block_size: int = 32768) -> str:
