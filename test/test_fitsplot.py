@@ -18,7 +18,7 @@ class FitsPlotTestCase(unittest.TestCase):
     def test_fits_plot(self):
         self.assertEqual(sha3_512(self.original_file), sha3_512(self.test_file))
 
-        fitsplot.fits_plot(self.test_file)
+        fitsplot.fits_plot(self.test_file, language="missing-language")
         self.assertEqual(sha3_512(self.original_image), sha3_512(self.test_image))
 
     def tearDown(self):
