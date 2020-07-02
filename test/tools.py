@@ -45,6 +45,8 @@ async def download_file(
                 if chunk:
                     await f.write(chunk)
 
+    client.aclose()
+
     return Path(filename)
 
 
