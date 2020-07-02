@@ -16,5 +16,5 @@ setup(
     packages=["pycallisto"],
     package_data={"pycallisto": ["languages.json"]},
     license="GPL-3.0-or-later",
-    extras_require={"dev": ["httpx",]},
+    extras_require={"dev": ["httpx", "aiofiles"]},
 )
