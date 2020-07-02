@@ -1,5 +1,6 @@
 import hashlib
 import json
+from pathlib import Path
 
 import httpx
 import numpy as np
@@ -29,9 +30,11 @@ def sha3_512(fname: str, block_size: int = 32768) -> str:
     return file_hash.hexdigest()
 
 
-def get_test_file():
-    """Download a FITS file from e-Callisto to use during the tests."""
-    test_file = "BLEN7M_20110809_080004_25.fit.gz"
+def get_test_file() -> Path:
+    """Download a FITS file from e-Callisto to use during the tests.
+    
+    :returns: Path object of the downloaded FITS file.
+    """
     callisto_archives = (
         "http://soleil80.cs.technik.fhnw.ch/" "solarradio/data/2002-20yy_Callisto/"
     )
@@ -40,9 +43,10 @@ def get_test_file():
     fitsfile = "BLEN7M_20110809_080004_25.fit.gz"
     fitsurl = callisto_archives + date_xpath + fitsfile
 
+    test_file = "BLEN7M_20110809_080004_25.fit.gz"
     with open(test_file, "wb") as fin:
         with httpx.stream("GET", fitsurl) as r:
             for chunk in r.iter_raw():
                 fin.write(chunk)
 
-    return test_file
+    return Path(test_file)

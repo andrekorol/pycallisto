@@ -1,6 +1,6 @@
 import json
-import os
 import unittest
+from pathlib import Path
 
 from .tools import NumpyEncoder, sha3_512
 
@@ -11,7 +11,7 @@ class TestingToolsTestCase(unittest.TestCase):
         with open(self.example_json_file) as fin:
             self.example_json_data = json.load(fin)
 
-        self.test_json_file = "json_example.json"
+        self.test_json_file = Path("json_example.json")
 
         return super().setUp()
 
@@ -23,7 +23,6 @@ class TestingToolsTestCase(unittest.TestCase):
         )
 
     def tearDown(self):
-        if os.path.isfile(self.test_json_file):
-            os.remove(self.test_json_file)
+        self.test_json_file.unlink(missing_ok=True)
 
         return super().tearDown()

@@ -1,5 +1,4 @@
 import json
-import os
 import unittest
 from pathlib import Path
 
@@ -16,7 +15,7 @@ class FitsFileTestCase(unittest.TestCase):
         self.missing_file = "NOT_HERE_BLEN7M_20110809_080004_25.fit.gz"
         self.invalid_file = "assets/test/BLEN7M_20110809_080004_25.png"
         self.original_hdul_dataset = "assets/test/hdul_dataset.json"
-        self.test_hdul_dataset = "hdul_dataset.json"
+        self.test_hdul_dataset = Path("hdul_dataset.json")
 
         return super().setUp()
 
@@ -45,10 +44,7 @@ class FitsFileTestCase(unittest.TestCase):
         )
 
     def tearDown(self):
-        if os.path.isfile(self.test_file):
-            os.remove(self.test_file)
-
-        if os.path.isfile(self.test_hdul_dataset):
-            os.remove(self.test_hdul_dataset)
+        self.test_file.unlink(missing_ok=True)
+        self.test_hdul_dataset.unlink(missing_ok=True)
 
         return super().tearDown()
