@@ -1,9 +1,7 @@
 import asyncio
-import concurrent.futures
 import hashlib
 import json
 from cgi import parse_header
-from os import remove
 from os.path import join
 from pathlib import Path
 from typing import List, Optional, Sequence
@@ -44,8 +42,6 @@ async def download_file(
             async for chunk in resp.aiter_bytes():
                 if chunk:
                     await f.write(chunk)
-
-    client.aclose()
 
     return Path(filename)
 

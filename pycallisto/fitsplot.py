@@ -161,10 +161,10 @@ def fits_plot_list(
     # Get the current figure to save it after showing it
     fig = plt.gcf()
 
-    if show:
-        plt.show()
-
     if save:
         fitspath = fitsfile.filepath
         img_filepath = str(fitspath).replace("".join(fitspath.suffixes), ext)
         fig.savefig(img_filepath)
+
+    if show:
+        plt.show()
