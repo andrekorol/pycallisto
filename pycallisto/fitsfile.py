@@ -21,6 +21,7 @@
 
 import fnmatch
 import os
+from pathlib import Path
 
 import numpy as np
 from astropy.io import fits
@@ -34,7 +35,7 @@ class FitsFile(object):
     def __init__(self, filename, filepath=""):
         self.filename = filename  # Name of the FITS file
         if filepath:
-            self.filepath = filepath  # Path to the FITS file
+            self.filepath = Path(filepath)  # Path to the FITS file
         else:
             # Look for the file and set its path
             matches = []
@@ -47,7 +48,7 @@ class FitsFile(object):
                 error_message += f"current working directory ({top_dir})."
                 raise FileNotFoundError(error_message)
             else:
-                self.filepath = matches[0]
+                self.filepath = Path(matches[0])
         try:
             self.hdul = fits.open(self.filepath)  # List of HDUs
             # (Header Data Unit)
