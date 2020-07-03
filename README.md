@@ -29,14 +29,14 @@ Once inside the package top directory, run `python setup.py install` **OR** `pip
 To test the library and its simplicity with some sample data, download these two FITS files from e-Callisto ([BLEN7M_20110809_080004_25.fit.gz](http://soleil80.cs.technik.fhnw.ch/solarradio/data/2002-20yy_Callisto/2011/08/09/BLEN7M_20110809_080004_25.fit.gz) and [BLEN7M_20110809_081504_25.fit.gz](http://soleil80.cs.technik.fhnw.ch/solarradio/data/2002-20yy_Callisto/2011/08/09/BLEN7M_20110809_081504_25.fit.gz)) and then run the following code from a Python interpreter:
 
 ```Python
-from pycallisto import fitsfile
+from pycallisto import fitsplot
 
 fits_file_list = [
     "BLEN7M_20110809_080004_25.fit.gz",
     "BLEN7M_20110809_081504_25.fit.gz",
 ]
 
-fitsfile.ECallistoFitsFile.plot_fits_files_list(fits_file_list, show=True)
+fitsplot(fits_file_list, show_colorbar=True)
 ```
 
 The resulting plot is:
