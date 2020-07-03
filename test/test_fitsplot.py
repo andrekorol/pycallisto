@@ -34,8 +34,6 @@ class FitsPlotTestCase(unittest.TestCase):
             )
 
         fitsplot(self.test_file_list, show=False, language="missing-language")
-        print(os.stat(self.original_list_image))
-        print(os.stat(self.test_list_image))
         self.assertEqual(
             sha3_512(self.original_list_image), sha3_512(self.test_list_image)
         )
