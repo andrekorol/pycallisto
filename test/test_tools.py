@@ -38,7 +38,10 @@ class DownloadFileTestCase(unittest.TestCase):
         )
         self.test_sales_records = asyncio.run(download_file(sales_records_url))
 
-        self.original_faces_dataset = "assets/test/All-Age-Faces Dataset.zip"
+        self.original_faces_dataset_sha3_512 = (
+            "3d130e191f832990781e21fa431bc54d416e45e80bae941000cc458479f2418d"
+            "18b9da90e5e0d2c94070698344577709f2c3c1964427840a35ab30601999455d"
+        )
         faces_dataset_url = (
             "https://www.dropbox.com/s/a0lj1ddd54ns8qy/"
             "All-Age-Faces%20Dataset.zip?dl=1"
@@ -51,9 +54,8 @@ class DownloadFileTestCase(unittest.TestCase):
         self.assertEqual(
             sha3_512(self.original_sales_records), sha3_512(self.test_sales_records)
         )
-
         self.assertEqual(
-            sha3_512(self.original_faces_dataset), sha3_512(self.test_faces_dataset)
+            self.original_faces_dataset_sha3_512, sha3_512(self.test_faces_dataset)
         )
 
     def tearDown(self):
