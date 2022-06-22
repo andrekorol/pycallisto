@@ -13,7 +13,7 @@ kiwisolver==1.2.0
 lazy-object-proxy==1.4.3
 matplotlib==3.2.1
 mccabe==0.6.1
-numpy==1.18.4
+numpy==1.22.0
 pathspec==0.8.0
 pycallisto==0.1.0
 pycodestyle==2.6.0
